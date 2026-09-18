@@ -1,0 +1,932 @@
+/* =====================================================
+   SOLUTION
+===================================================== */
+
+.solution {
+
+    padding: 7rem 0;
+
+    background: #fff;
+
+    overflow: hidden;
+
+}
+
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.solution-container {
+
+    width: min(1240px, 92%);
+
+    margin-inline: auto;
+
+    display: grid;
+
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+
+    align-items: center;
+
+    gap: clamp(3rem, 5vw, 5rem);
+
+}
+
+
+/* =====================================================
+   IMAGEM
+===================================================== */
+
+.solution-image {
+
+    width: 100%;
+
+    height: 720px;
+
+    overflow: hidden;
+
+    border-radius: 30px;
+
+    min-width: 0;
+
+}
+
+
+.solution-image img {
+
+    width: 100%;
+
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    object-position: center center;
+
+}
+
+
+/* =====================================================
+   CONTEÚDO
+===================================================== */
+
+.solution-content {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+}
+
+
+/* =====================================================
+   TÍTULO
+===================================================== */
+
+.solution-content h2 {
+
+    width: 100%;
+
+    max-width: 560px;
+
+    margin: 0 0 2rem;
+
+    color: #151312;
+
+    font-size: clamp(
+        2.8rem,
+        4vw,
+        4.6rem
+    );
+
+    line-height: .98;
+
+    letter-spacing: -.04em;
+
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   LINHA EM DESTAQUE
+===================================================== */
+
+.solution-content h2 span {
+
+    display: block;
+
+    font-family: Georgia, serif;
+
+    font-style: italic;
+
+    font-weight: 500;
+
+    letter-spacing: -.035em;
+}
+
+
+/* =====================================================
+   DESCRIÇÃO
+===================================================== */
+
+.solution-description {
+
+    width: 100%;
+
+    max-width: 540px;
+
+    margin: 0 0 2.5rem;
+
+    color: #666;
+
+    font-size: 1.08rem;
+
+    line-height: 1.75;
+}
+
+
+/* =====================================================
+   BENEFÍCIOS
+===================================================== */
+
+.solution-benefits {
+
+    width: 100%;
+
+    max-width: 560px;
+
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 1rem;
+
+    margin: 0 0 2.5rem;
+
+}
+
+
+.solution-item {
+
+    min-width: 0;
+
+    min-height: 64px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: .7rem;
+
+    padding:
+        .9rem
+        1.1rem;
+
+    background: #fafafa;
+
+    border: 1px solid #ec7404;
+
+    border-radius: 999px;
+
+    cursor: default;
+
+}
+
+
+.solution-item span {
+
+    flex-shrink: 0;
+
+    color: #ec7404;
+
+    font-size: 1.05rem;
+
+    font-weight: 700;
+}
+
+
+.solution-item p {
+
+    min-width: 0;
+
+    margin: 0;
+
+    color: #222;
+
+    font-size: .95rem;
+
+    font-weight: 600;
+
+    line-height: 1.3;
+}
+
+
+/* =====================================================
+   BOTÃO
+===================================================== */
+
+.solution-button {
+
+    width: fit-content;
+
+    min-height: 56px;
+
+    padding:
+        0
+        2.3rem;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 999px;
+
+    background: #ec7404;
+
+    color: #fff;
+
+    font-size: 1rem;
+
+    font-weight: 700;
+
+    line-height: 1;
+
+    text-decoration: none;
+
+    box-shadow:
+        0 12px 30px rgba(236, 116, 4, .22);
+
+    cursor: pointer;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease,
+        background .3s ease;
+}
+
+
+.solution-button:hover {
+
+    background: #d96802;
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 18px 40px rgba(236, 116, 4, .30);
+
+}
+
+
+.solution-button:active {
+
+    transform: scale(.97);
+
+}
+
+
+/* =====================================================
+   NOTEBOOK
+===================================================== */
+
+@media (max-width: 1200px) {
+
+    .solution {
+
+        padding: 6rem 0;
+
+    }
+
+
+    .solution-container {
+
+        width: min(1160px, 92%);
+
+        gap: 3.5rem;
+
+    }
+
+
+    .solution-image {
+
+        height: 620px;
+
+    }
+
+
+    .solution-content h2 {
+
+        max-width: 500px;
+
+        font-size: clamp(
+            2.6rem,
+            4vw,
+            4rem
+        );
+
+    }
+
+
+    .solution-description {
+
+        max-width: 500px;
+
+        font-size: 1rem;
+
+    }
+
+
+    .solution-benefits {
+
+        max-width: 500px;
+
+    }
+
+
+    .solution-item {
+
+        padding-inline: 1rem;
+
+    }
+
+
+    .solution-item p {
+
+        font-size: .9rem;
+
+    }
+
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 992px) {
+
+    .solution {
+
+        padding: 5.5rem 0;
+
+    }
+
+
+    .solution-container {
+
+        width: min(760px, 92%);
+
+        grid-template-columns: 1fr;
+
+        gap: 3rem;
+
+    }
+
+
+    /* ---------------------------------------------
+       IMAGEM
+    --------------------------------------------- */
+
+    .solution-image {
+
+        order: -1;
+
+        width: 100%;
+
+        height: auto;
+
+        aspect-ratio: 4 / 3;
+
+        border-radius: 26px;
+
+    }
+
+
+    .solution-image img {
+
+        object-position: center center;
+
+    }
+
+
+    /* ---------------------------------------------
+       CONTEÚDO
+    --------------------------------------------- */
+
+    .solution-content {
+
+        align-items: center;
+
+        text-align: center;
+
+    }
+
+
+    .solution-content h2 {
+
+        max-width: 680px;
+
+        margin-inline: auto;
+
+        font-size: clamp(
+            2.7rem,
+            6.5vw,
+            4rem
+        );
+
+        line-height: .98;
+
+    }
+
+
+    .solution-description {
+
+        max-width: 620px;
+
+        margin-inline: auto;
+
+    }
+
+
+    .solution-benefits {
+
+        max-width: 650px;
+
+        margin-inline: auto;
+
+    }
+
+
+    .solution-item {
+
+        justify-content: center;
+
+        text-align: center;
+
+    }
+
+
+    .solution-button {
+
+        margin-inline: auto;
+
+    }
+
+}
+
+
+/* =====================================================
+   TABLET MENOR
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .solution {
+
+        padding: 5rem 0;
+
+    }
+
+
+    .solution-container {
+
+        width: min(100% - 2rem, 620px);
+
+        gap: 2.5rem;
+
+    }
+
+
+    /* ---------------------------------------------
+       IMAGEM
+    --------------------------------------------- */
+
+    .solution-image {
+
+        aspect-ratio: 4 / 3;
+
+        border-radius: 24px;
+
+    }
+
+
+    /* ---------------------------------------------
+       TÍTULO
+    --------------------------------------------- */
+
+    .solution-content h2 {
+
+        max-width: 620px;
+
+        font-size: clamp(
+            2.45rem,
+            8vw,
+            3.35rem
+        );
+
+        line-height: 1;
+
+        letter-spacing: -.035em;
+
+    }
+
+
+    /* ---------------------------------------------
+       DESCRIÇÃO
+    --------------------------------------------- */
+
+    .solution-description {
+
+        max-width: 570px;
+
+        font-size: 1rem;
+
+        line-height: 1.7;
+
+    }
+
+
+    /* ---------------------------------------------
+       BENEFÍCIOS
+    --------------------------------------------- */
+
+    .solution-benefits {
+
+        width: 100%;
+
+        max-width: 580px;
+
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        gap: .8rem;
+
+    }
+
+
+    .solution-item {
+
+        min-height: 60px;
+
+        padding:
+            .8rem
+            .75rem;
+
+        gap: .5rem;
+
+    }
+
+
+    .solution-item span {
+
+        font-size: 1rem;
+
+    }
+
+
+    .solution-item p {
+
+        font-size: .86rem;
+
+        line-height: 1.25;
+
+    }
+
+
+    /* ---------------------------------------------
+       BOTÃO
+    --------------------------------------------- */
+
+    .solution-button {
+
+        width: 100%;
+
+        max-width: 360px;
+
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .solution-content h2 {
+        max-width: 350px;
+        font-size: clamp(2.15rem, 8.8vw, 2.65rem);
+    }
+
+    .solution-description {
+        max-width: 350px;
+        font-size: .94rem;
+        line-height: 1.65;
+    }
+
+    .solution-benefits {
+        max-width: 350px;
+        gap: .7rem;
+    }
+
+    .solution-item {
+        min-height: 62px;
+        padding-inline: .65rem;
+    }
+
+    .solution-item p {
+        font-size: .8rem;
+        line-height: 1.2;
+    }
+
+
+
+    .solution {
+
+        padding: 4.5rem 0;
+
+    }
+
+
+    .solution-container {
+
+        width: calc(100% - 2rem);
+
+        gap: 2.2rem;
+
+    }
+
+
+    /* ---------------------------------------------
+       IMAGEM
+    --------------------------------------------- */
+
+    .solution-image {
+
+        width: 100%;
+
+        aspect-ratio: 4 / 3;
+
+        border-radius: 22px;
+
+    }
+
+
+    /* ---------------------------------------------
+       CONTEÚDO
+    --------------------------------------------- */
+
+    .solution-content {
+
+        width: 100%;
+
+    }
+
+
+    /* ---------------------------------------------
+       TÍTULO
+    --------------------------------------------- */
+
+    .solution-content h2 {
+
+        width: 100%;
+
+        max-width: 350px;
+
+        margin:
+            0 auto
+            1.4rem;
+
+        font-size: clamp(
+            2.15rem,
+            9.2vw,
+            2.75rem
+        );
+
+        line-height: 1;
+
+        letter-spacing: -.035em;
+
+        text-align: center;
+
+    }
+
+
+    .solution-content h2 span {
+
+        margin-top: .05em;
+
+    }
+
+
+    /* ---------------------------------------------
+       DESCRIÇÃO
+    --------------------------------------------- */
+
+    .solution-description {
+
+        width: 100%;
+
+        max-width: 350px;
+
+        margin:
+            0 auto
+            1.8rem;
+
+        font-size: .95rem;
+
+        line-height: 1.65;
+
+        text-align: center;
+
+    }
+
+
+    /* ---------------------------------------------
+       BENEFÍCIOS
+    --------------------------------------------- */
+
+    .solution-benefits {
+
+        width: 100%;
+
+        max-width: 350px;
+
+        grid-template-columns: 1fr 1fr;
+
+        gap: .7rem;
+
+        margin-inline: auto;
+
+    }
+
+
+    .solution-item {
+
+        width: 100%;
+
+        min-height: 62px;
+
+        padding:
+            .75rem
+            .65rem;
+
+        justify-content: center;
+
+        gap: .4rem;
+
+        border-radius: 18px;
+
+    }
+
+
+    .solution-item span {
+
+        font-size: .95rem;
+
+    }
+
+
+    .solution-item p {
+
+        font-size: .8rem;
+
+        line-height: 1.2;
+
+        text-align: center;
+
+    }
+
+
+    /* ---------------------------------------------
+       BOTÃO
+    --------------------------------------------- */
+
+    .solution-button {
+
+        width: 100%;
+
+        max-width: 350px;
+
+        min-height: 56px;
+
+        margin-inline: auto;
+
+        padding-inline: 1rem;
+
+        font-size: .94rem;
+
+    }
+
+}
+
+
+/* =====================================================
+   CELULAR PEQUENO
+===================================================== */
+
+@media (max-width: 400px) {
+
+    .solution {
+
+        padding: 4rem 0;
+
+    }
+
+
+    .solution-container {
+
+        width: calc(100% - 1.5rem);
+
+    }
+
+
+    .solution-image {
+
+        border-radius: 20px;
+
+    }
+
+
+    .solution-content h2 {
+
+        max-width: 340px;
+
+        font-size: 2.05rem;
+
+        line-height: 1;
+
+    }
+
+
+    .solution-description {
+
+        max-width: 330px;
+
+        font-size: .91rem;
+
+    }
+
+
+    .solution-benefits {
+
+        max-width: 340px;
+
+        gap: .6rem;
+
+    }
+
+
+    .solution-item {
+
+        min-height: 60px;
+
+        padding:
+            .7rem
+            .5rem;
+
+    }
+
+
+    .solution-item p {
+
+        font-size: .76rem;
+
+    }
+
+
+    .solution-button {
+
+        max-width: 340px;
+
+    }
+
+}
+
+
+/* =====================================================
+   ACESSIBILIDADE
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .solution-image,
+    .solution-image img,
+    .solution-button {
+
+        transition: none !important;
+
+        animation: none !important;
+
+        transform: none !important;
+
+    }
+
+}
