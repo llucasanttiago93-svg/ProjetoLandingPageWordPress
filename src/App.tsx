@@ -1,40 +1,30 @@
 import Header from "./components/Header/Header";
 import Hero from "./components/Hero/Hero";
 import Solution from "./components/Solution/Solution";
-import Fragrance from "./components/Fragrance/Fragrance";
-import Ingredients from "./components/Ingredients/Ingredients";
 import Results from "./components/Results/Results";
+import Formula from "./components/Formula/Formula";
 import HowTo from "./components/HowToUse/HowTo";
-import Testimonials from "./components/Testimonials/Testimonials";
-import Guarantee from "./components/Guarantee/Guarantee";
 import Offer from "./components/Offer/Offer";
-import Faq from "./components/FAQ/FAQ";
 import Footer from "./components/Footer/Footer";
 
 
 function App() {
-
     return (
         <>
             <Header />
 
             <main>
                 <Hero />
-                <Testimonials />
                 <Solution />
-                <Fragrance />
-                <Ingredients />
                 <Results />
+                <Formula />
                 <HowTo />
-                <Guarantee />
                 <Offer />
-                <Faq />
             </main>
 
             <Footer />
         </>
     );
-
 }
 
 

@@ -1,115 +1,242 @@
-import { motion, type Variants } from "motion/react";
+import {
+    useRef,
+    useState,
+} from "react";
+
+import {
+    AnimatePresence,
+    motion,
+    type Variants,
+} from "motion/react";
+
 import "./Results.css";
 
 
+const ease = [0.22, 1, 0.36, 1] as const;
+
+
 /* =====================================================
-   ANIMAÇÃO DO HEADER
+   ANIMAÇÕES
 ===================================================== */
 
-const headerVariants: Variants = {
-
+const fadeUpVariants: Variants = {
     hidden: {
-
         opacity: 0,
-
-        y: 35,
-
+        y: 24,
     },
 
     visible: {
-
         opacity: 1,
-
         y: 0,
 
         transition: {
-
-            duration: 0.8,
-
-            ease: [
-                0.22,
-                1,
-                0.36,
-                1,
-            ],
-
+            duration: 0.7,
+            ease,
         },
-
     },
-
 };
 
 
-/* =====================================================
-   ANIMAÇÃO DO GRID
-===================================================== */
-
-const cardsContainerVariants: Variants = {
-
-    hidden: {},
-
-    visible: {
-
-        transition: {
-
-            staggerChildren: 0.1,
-
-            delayChildren: 0.15,
-
-        },
-
-    },
-
-};
-
-
-/* =====================================================
-   ANIMAÇÃO DOS CARDS
-===================================================== */
-
-const cardVariants: Variants = {
-
-    hidden: {
-
+const imageVariants: Variants = {
+    initial: {
         opacity: 0,
-
-        y: 35,
-
-        scale: 0.97,
-
+        scale: 1.025,
     },
 
-    visible: {
-
+    animate: {
         opacity: 1,
-
-        y: 0,
-
         scale: 1,
 
         transition: {
-
-            duration: 0.7,
-
-            ease: [
-                0.22,
-                1,
-                0.36,
-                1,
-            ],
-
+            duration: 0.5,
+            ease,
         },
-
     },
 
+    exit: {
+        opacity: 0,
+        scale: .99,
+
+        transition: {
+            duration: 0.24,
+            ease,
+        },
+    },
 };
 
 
 /* =====================================================
-   RESULTS
+   RESULTADOS
+===================================================== */
+
+const resultOptions = [
+
+    {
+        key: "brilho",
+
+        label: "Brilho",
+
+        title: "Brilho que aparece.",
+
+        text:
+            "Um acabamento mais luminoso, que chama atenção no espelho.",
+
+        image:
+            `${import.meta.env.BASE_URL}images/brilho-intenso.webp`,
+
+        alt:
+            "Cabelo com brilho intenso após a finalização com o Queridinho Supreme",
+    },
+
+
+    {
+        key: "alinhamento",
+
+        label: "Alinhamento",
+
+        title: "Mais alinhamento.",
+
+        text:
+            "Pontas com aparência mais cuidada e fios visualmente mais polidos.",
+
+        image:
+            `${import.meta.env.BASE_URL}images/frizz-controlado.webp`,
+
+        alt:
+            "Cabelo alinhado e com frizz visualmente controlado após a finalização",
+    },
+
+
+    {
+        key: "maciez",
+
+        label: "Maciez",
+
+        title: "Toque que entrega cuidado.",
+
+        text:
+            "Maciez e sedosidade sem aquela sensação pesada nos fios.",
+
+        image:
+            `${import.meta.env.BASE_URL}images/maciez-absoluta.webp`,
+
+        alt:
+            "Cabelo macio e sedoso após a finalização com o Queridinho Supreme",
+    },
+
+
+    {
+        key: "perfume",
+
+        label: "Perfume",
+
+        title: "O detalhe que fica.",
+
+        text:
+            "Uma fragrância sofisticada que completa a experiência do atendimento.",
+
+        image:
+            `${import.meta.env.BASE_URL}images/perfume-marcante.webp`,
+
+        alt:
+            "Cabelo finalizado com a fragrância do Queridinho Supreme",
+    },
+
+];
+
+
+/* =====================================================
+   PROVAS SOCIAIS
+===================================================== */
+
+const testimonials = [
+
+    `${import.meta.env.BASE_URL}images/prova2.webp`,
+    `${import.meta.env.BASE_URL}images/prova1.webp`,
+    `${import.meta.env.BASE_URL}images/prova3.webp`,
+    `${import.meta.env.BASE_URL}images/prova4.webp`,
+    `${import.meta.env.BASE_URL}images/prova5.webp`,
+    `${import.meta.env.BASE_URL}images/prova6.webp`,
+    `${import.meta.env.BASE_URL}images/prova7.webp`,
+    `${import.meta.env.BASE_URL}images/prova8.webp`,
+    `${import.meta.env.BASE_URL}images/prova9.webp`,
+    `${import.meta.env.BASE_URL}images/prova10.webp`,
+    `${import.meta.env.BASE_URL}images/prova11.webp`,
+    `${import.meta.env.BASE_URL}images/prova12.webp`,
+
+];
+
+
+/* =====================================================
+   COMPONENTE
 ===================================================== */
 
 function Results() {
+
+    const [
+        activeResult,
+        setActiveResult,
+    ] = useState(0);
+
+
+    const [
+        selectedTestimonial,
+        setSelectedTestimonial,
+    ] = useState<number | null>(null);
+
+
+    const testimonialRef =
+        useRef<HTMLDivElement>(null);
+
+
+    const currentResult =
+        resultOptions[activeResult];
+
+
+    /* =================================================
+       ROLAGEM DAS PROVAS
+    ================================================= */
+
+    const scrollTestimonials = (
+        direction: "next" | "prev",
+    ) => {
+
+        const element =
+            testimonialRef.current;
+
+
+        if (!element) {
+            return;
+        }
+
+
+        element.scrollBy({
+
+            left:
+                direction === "next"
+                    ? element.clientWidth * .82
+                    : -element.clientWidth * .82,
+
+            behavior:
+                "smooth",
+
+        });
+
+    };
+
+
+    /* =================================================
+       RESULTADO
+    ================================================= */
+
+    const handleResultChange = (
+        index: number,
+    ) => {
+
+        setActiveResult(index);
+
+    };
+
 
     return (
 
@@ -118,17 +245,17 @@ function Results() {
             id="resultados"
         >
 
-            <div className="container">
+            <div className="results-container">
 
 
                 {/* =================================================
-                    HEADER
+                    CABEÇALHO
                 ================================================= */}
 
                 <motion.div
                     className="results-header"
 
-                    variants={headerVariants}
+                    variants={fadeUpVariants}
 
                     initial="hidden"
 
@@ -136,42 +263,291 @@ function Results() {
 
                     viewport={{
                         once: true,
-                        amount: 0.3,
+                        amount: .25,
                     }}
                 >
 
-                    <p className="results-eyebrow">
-                        O RESULTADO NO ESPELHO
-                    </p>
+                    <span className="results-eyebrow">
+                        03 • RESULTADO + PROVA
+                    </span>
 
 
                     <h2>
-                        É aqui que você percebe.
-                        <br />
-                        E sente a diferença.
+                        O acabamento aparece.
+
+                        <span>
+                            A cliente percebe.
+                        </span>
                     </h2>
 
 
                     <p>
-                        Mais brilho.
-                        Mais maciez.
-                        Mais alinhamento.
-                        E aquele perfume que completa tudo.
+                        Escolha um detalhe e veja como o último
+                        passo pode mudar a percepção de uma
+                        finalização.
                     </p>
 
                 </motion.div>
 
 
                 {/* =================================================
-                    RESULTADOS
+                    RESULTADO INTERATIVO
+                ================================================= */}
+
+                <div className="results-showcase">
+
+
+                    {/* =================================================
+                        CONTROLES
+                    ================================================= */}
+
+                    <motion.div
+                        className="results-controls"
+
+                        variants={fadeUpVariants}
+
+                        initial="hidden"
+
+                        whileInView="visible"
+
+                        viewport={{
+                            once: true,
+                            amount: .15,
+                        }}
+                    >
+
+                        <span className="results-small-label">
+                            ESCOLHA O QUE VOCÊ QUER VER
+                        </span>
+
+
+                        <div
+                            className="results-selector"
+
+                            role="tablist"
+
+                            aria-label="Resultados do Queridinho Supreme"
+                        >
+
+                            {resultOptions.map(
+                                (
+                                    option,
+                                    index,
+                                ) => (
+
+                                    <button
+                                        key={option.key}
+
+                                        type="button"
+
+                                        role="tab"
+
+                                        aria-selected={
+                                            activeResult === index
+                                        }
+
+                                        className={
+                                            activeResult === index
+                                                ? "results-selector-button active"
+                                                : "results-selector-button"
+                                        }
+
+                                        onClick={() =>
+                                            handleResultChange(index)
+                                        }
+                                    >
+
+                                        <span>
+                                            0{index + 1}
+                                        </span>
+
+
+                                        <strong>
+                                            {option.label}
+                                        </strong>
+
+
+                                        <em>
+                                            →
+                                        </em>
+
+                                    </button>
+
+                                ),
+                            )}
+
+                        </div>
+
+
+                        <div
+                            className="results-interaction-hint"
+                            aria-hidden="true"
+                        >
+                            <span>
+                                ↓
+                            </span>
+                        </div>
+
+                    </motion.div>
+
+
+                    {/* =================================================
+                        VISUAL
+                    ================================================= */}
+
+                    <motion.div
+                        className="results-visual"
+
+                        initial={{
+                            opacity: 0,
+                            y: 24,
+                        }}
+
+                        whileInView={{
+                            opacity: 1,
+                            y: 0,
+                        }}
+
+                        viewport={{
+                            once: true,
+                            amount: .18,
+                        }}
+
+                        transition={{
+                            duration: .8,
+                            delay: .05,
+                            ease,
+                        }}
+                    >
+
+                        <AnimatePresence
+                            mode="wait"
+                        >
+
+                            <motion.img
+
+                                key={
+                                    currentResult.key
+                                }
+
+                                className="results-main-image"
+
+                                src={
+                                    currentResult.image
+                                }
+
+                                alt={
+                                    currentResult.alt
+                                }
+
+                                loading="lazy"
+
+                                decoding="async"
+
+                                variants={
+                                    imageVariants
+                                }
+
+                                initial="initial"
+
+                                animate="animate"
+
+                                exit="exit"
+
+                            />
+
+                        </AnimatePresence>
+
+
+                        <div className="results-visual-label">
+
+                            <span>
+                                QUERIDINHO SUPREME
+                            </span>
+
+
+                            <strong>
+                                {currentResult.label}
+                            </strong>
+
+                        </div>
+
+                    </motion.div>
+
+
+                    {/* =================================================
+                        RESULTADO ATIVO
+                    ================================================= */}
+
+                    <motion.div
+                        className="results-result-info"
+
+                        key={
+                            currentResult.key
+                        }
+
+                        initial={{
+                            opacity: 0,
+                            y: 18,
+                        }}
+
+                        animate={{
+                            opacity: 1,
+                            y: 0,
+                        }}
+
+                        transition={{
+                            duration: .45,
+                            ease,
+                        }}
+                    >
+
+                        <span className="results-result-label">
+                            0{activeResult + 1}
+                        </span>
+
+
+                        <h3>
+                            {currentResult.title}
+                        </h3>
+
+
+                        <p>
+                            {currentResult.text}
+                        </p>
+
+
+                        <div className="results-belief">
+
+                            <span aria-hidden="true">
+                                ✦
+                            </span>
+
+
+                            <p>
+                                Porque quando o último detalhe
+                                está certo,
+
+                                <strong>
+                                    {" "}todo o seu trabalho aparece.
+                                </strong>
+                            </p>
+
+                        </div>
+
+                    </motion.div>
+
+                </div>
+
+
+                {/* =================================================
+                    PROVA SOCIAL
                 ================================================= */}
 
                 <motion.div
-                    className="results-grid"
+                    className="results-proof"
 
-                    variants={
-                        cardsContainerVariants
-                    }
+                    variants={fadeUpVariants}
 
                     initial="hidden"
 
@@ -179,294 +555,165 @@ function Results() {
 
                     viewport={{
                         once: true,
-                        amount: 0.15,
+                        amount: .15,
                     }}
                 >
 
+                    <div className="results-proof-heading">
 
-                    {/* =================================================
-                        BRILHO
-                    ================================================= */}
+                        <div>
 
-                    <motion.article
-                        className="result-card"
-
-                        variants={cardVariants}
-
-                        whileHover={{
-                            y: -8,
-
-                            scale: 1.01,
-
-                            boxShadow:
-                                "0 30px 70px rgba(0,0,0,.12)",
-                        }}
-                    >
-
-                        <motion.img
-                            src={`${import.meta.env.BASE_URL}images/brilho-intenso.webp`}
-
-                            alt="Cabelos com brilho intenso após o uso do Queridinho Supreme"
-
-                            loading="lazy"
-
-                            decoding="async"
-
-                            whileHover={{
-                                scale: 1.03,
-                            }}
-
-                            transition={{
-                                duration: 0.6,
-
-                                ease: [
-                                    0.22,
-                                    1,
-                                    0.36,
-                                    1,
-                                ],
-                            }}
-                        />
-
-
-                        <div className="result-content">
-
-                            <span
-                                aria-hidden="true"
-                            >
-                                ✨
+                            <span className="results-small-label">
+                                EXPERIÊNCIAS DE PROFISSIONAIS
                             </span>
 
 
                             <h3>
-                                Brilho Intenso
+                                Quem entende de cabelo,
+
+                                <em>
+                                    recomenda.
+                                </em>
                             </h3>
 
 
-                            <p>
-                                Fios com aparência mais luminosa e acabamento bonito.
+                            <p className="results-proof-subtitle">
+                                Veja o que profissionais compartilham
+                                sobre o Queridinho no dia a dia.
                             </p>
 
                         </div>
 
-                    </motion.article>
+
+                        <div className="results-proof-controls">
+
+                            <button
+                                type="button"
+
+                                className="results-arrow"
+
+                                onClick={() =>
+                                    scrollTestimonials("prev")
+                                }
+
+                                aria-label="Mostrar provas anteriores"
+                            >
+                                ‹
+                            </button>
+
+
+                            <button
+                                type="button"
+
+                                className="results-arrow"
+
+                                onClick={() =>
+                                    scrollTestimonials("next")
+                                }
+
+                                aria-label="Mostrar próximas provas"
+                            >
+                                ›
+                            </button>
+
+                        </div>
+
+                    </div>
 
 
                     {/* =================================================
-                        PERFUME
+                        CARROSSEL
                     ================================================= */}
 
-                    <motion.article
-                        className="result-card"
+                    <div
+                        ref={testimonialRef}
 
-                        variants={cardVariants}
-
-                        whileHover={{
-                            y: -8,
-
-                            scale: 1.01,
-
-                            boxShadow:
-                                "0 30px 70px rgba(0,0,0,.12)",
-                        }}
+                        className="results-testimonials"
                     >
 
-                        <motion.img
-                            src={`${import.meta.env.BASE_URL}images/perfume-marcante.webp`}
+                        <div className="results-testimonials-track">
 
-                            alt="Cabelos perfumados com a fragrância do Queridinho Supreme"
+                            {testimonials.map(
+                                (
+                                    image,
+                                    index,
+                                ) => (
 
-                            loading="lazy"
+                                    <motion.button
+                                        key={image}
 
-                            decoding="async"
+                                        type="button"
 
-                            whileHover={{
-                                scale: 1.03,
-                            }}
+                                        className="results-testimonial"
 
-                            transition={{
-                                duration: 0.6,
+                                        whileHover={{
+                                            y: -5,
+                                        }}
 
-                                ease: [
-                                    0.22,
-                                    1,
-                                    0.36,
-                                    1,
-                                ],
-                            }}
-                        />
+                                        whileTap={{
+                                            scale: .985,
+                                        }}
 
+                                        onClick={() =>
+                                            setSelectedTestimonial(
+                                                index,
+                                            )
+                                        }
 
-                        <div className="result-content">
+                                        aria-label={
+                                            `Ampliar experiência ${index + 1}`
+                                        }
+                                    >
 
-                            <span
-                                aria-hidden="true"
-                            >
-                                🌸
-                            </span>
+                                        <img
+                                            src={image}
 
+                                            alt={
+                                                `Experiência profissional ${index + 1} sobre o Queridinho Supreme`
+                                            }
 
-                            <h3>
-                                Perfume Marcante
-                            </h3>
+                                            loading="lazy"
 
+                                            decoding="async"
+                                        />
 
-                            <p>
-                                Uma fragrância sofisticada que transforma a finalização.
-                            </p>
+                                    </motion.button>
+
+                                ),
+                            )}
 
                         </div>
 
-                    </motion.article>
+                    </div>
 
 
-                    {/* =================================================
-                        MACIEZ
-                    ================================================= */}
+                    <div className="results-proof-hint">
 
-                    <motion.article
-                        className="result-card"
+                        <span>
+                            ←
+                        </span>
 
-                        variants={cardVariants}
+                        <span>
+                            Deslize para ver mais experiências
+                        </span>
 
-                        whileHover={{
-                            y: -8,
+                        <span>
+                            →
+                        </span>
 
-                            scale: 1.01,
-
-                            boxShadow:
-                                "0 30px 70px rgba(0,0,0,.12)",
-                        }}
-                    >
-
-                        <motion.img
-                            src={`${import.meta.env.BASE_URL}images/maciez-absoluta.webp`}
-
-                            alt="Cabelos macios e sedosos após o uso do Queridinho Supreme"
-
-                            loading="lazy"
-
-                            decoding="async"
-
-                            whileHover={{
-                                scale: 1.03,
-                            }}
-
-                            transition={{
-                                duration: 0.6,
-
-                                ease: [
-                                    0.22,
-                                    1,
-                                    0.36,
-                                    1,
-                                ],
-                            }}
-                        />
-
-
-                        <div className="result-content">
-
-                            <span
-                                aria-hidden="true"
-                            >
-                                💎
-                            </span>
-
-
-                            <h3>
-                                Maciez e Sedosidade
-                            </h3>
-
-
-                            <p>
-                                Toque macio e agradável sem sensação pesada.
-                            </p>
-
-                        </div>
-
-                    </motion.article>
-
-
-                    {/* =================================================
-                        FRIZZ
-                    ================================================= */}
-
-                    <motion.article
-                        className="result-card"
-
-                        variants={cardVariants}
-
-                        whileHover={{
-                            y: -8,
-
-                            scale: 1.01,
-
-                            boxShadow:
-                                "0 30px 70px rgba(0,0,0,.12)",
-                        }}
-                    >
-
-                        <motion.img
-                            src={`${import.meta.env.BASE_URL}images/frizz-controlado.webp`}
-
-                            alt="Cabelos alinhados e com frizz controlado após o uso do Queridinho Supreme"
-
-                            loading="lazy"
-
-                            decoding="async"
-
-                            whileHover={{
-                                scale: 1.03,
-                            }}
-
-                            transition={{
-                                duration: 0.6,
-
-                                ease: [
-                                    0.22,
-                                    1,
-                                    0.36,
-                                    1,
-                                ],
-                            }}
-                        />
-
-
-                        <div className="result-content">
-
-                            <span
-                                aria-hidden="true"
-                            >
-                                ✔
-                            </span>
-
-
-                            <h3>
-                                Fios mais Alinhados
-                            </h3>
-
-
-                            <p>
-                                Menos aparência de frizz e um acabamento mais polido.
-                            </p>
-
-                        </div>
-
-                    </motion.article>
-
+                    </div>
 
                 </motion.div>
 
 
                 {/* =================================================
-                    FOOTER DA SEÇÃO
+                    PONTE PARA FÓRMULA
                 ================================================= */}
 
                 <motion.div
-                    className="results-footer"
+                    className="results-transition"
 
-                    variants={headerVariants}
+                    variants={fadeUpVariants}
 
                     initial="hidden"
 
@@ -474,17 +721,127 @@ function Results() {
 
                     viewport={{
                         once: true,
-                        amount: 0.3,
+                        amount: .3,
                     }}
                 >
+
+                    <span
+                        aria-hidden="true"
+                    />
+
+
+                    <div>
+
+                        <span className="results-transition-eyebrow">
+                            O RESULTADO CHAMA ATENÇÃO
+                        </span>
+
+
+                        <p>
+                            Mas existe uma razão por trás desse acabamento.
+
+                            <strong>
+                                {" "}E ela começa na fórmula.
+                            </strong>
+                        </p>
+
+                    </div>
+
                 </motion.div>
 
             </div>
 
+
+            {/* =====================================================
+                LIGHTBOX
+            ===================================================== */}
+
+            <AnimatePresence>
+
+                {selectedTestimonial !== null && (
+
+                    <motion.div
+                        className="results-lightbox"
+
+                        initial={{
+                            opacity: 0,
+                        }}
+
+                        animate={{
+                            opacity: 1,
+                        }}
+
+                        exit={{
+                            opacity: 0,
+                        }}
+
+                        role="dialog"
+
+                        aria-modal="true"
+
+                        aria-label="Experiência profissional ampliada"
+
+                        onClick={() =>
+                            setSelectedTestimonial(null)
+                        }
+                    >
+
+                        <button
+                            type="button"
+
+                            className="results-lightbox-close"
+
+                            onClick={() =>
+                                setSelectedTestimonial(null)
+                            }
+
+                            aria-label="Fechar"
+                        >
+                            ×
+                        </button>
+
+
+                        <motion.img
+
+                            src={
+                                testimonials[
+                                    selectedTestimonial
+                                ]
+                            }
+
+                            alt={
+                                `Experiência profissional ampliada ${selectedTestimonial + 1}`
+                            }
+
+                            initial={{
+                                opacity: 0,
+                                scale: .96,
+                            }}
+
+                            animate={{
+                                opacity: 1,
+                                scale: 1,
+                            }}
+
+                            transition={{
+                                duration: .35,
+                                ease,
+                            }}
+
+                            onClick={(event) =>
+                                event.stopPropagation()
+                            }
+
+                        />
+
+                    </motion.div>
+
+                )}
+
+            </AnimatePresence>
+
         </section>
-
     );
-
 }
 
 

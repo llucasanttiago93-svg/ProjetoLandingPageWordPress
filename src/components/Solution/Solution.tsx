@@ -1,400 +1,490 @@
-import { motion, type Variants } from "motion/react";
+import { useState } from "react";
+import {
+    motion,
+    type Variants,
+} from "motion/react";
+
 import "./Solution.css";
 
 
+const ease = [0.22, 1, 0.36, 1] as const;
+
+
 /* =====================================================
-   ANIMAÇÃO DO CONTEÚDO
+   TIPAGEM
 ===================================================== */
 
-const contentVariants: Variants = {
-
-  hidden: {
-    opacity: 0,
-    y: 35,
-  },
-
-  visible: {
-
-    opacity: 1,
-
-    y: 0,
-
-    transition: {
-
-      duration: 0.75,
-
-      ease: [
-        0.22,
-        1,
-        0.36,
-        1,
-      ],
-
-    },
-
-  },
-
+type OpportunityStep = {
+    number: string;
+    label: string;
+    title: string;
+    description: string;
+    detail: string;
 };
 
 
 /* =====================================================
-   ANIMAÇÃO DOS BENEFÍCIOS
+   ETAPAS DA OPORTUNIDADE
 ===================================================== */
 
-const benefitsContainerVariants: Variants = {
-
-  hidden: {},
-
-  visible: {
-
-    transition: {
-
-      staggerChildren: 0.08,
-
-      delayChildren: 0.15,
-
+const opportunitySteps: OpportunityStep[] = [
+    {
+        number: "01",
+        label: "NO SALÃO",
+        title: "Você já conquistou o mais difícil.",
+        description:
+            "A cliente sentou na sua cadeira, confiou no seu trabalho e chegou até o resultado final.",
+        detail:
+            "Existe confiança. Existe atenção. Existe uma experiência acontecendo naquele momento.",
     },
 
-  },
+    {
+        number: "02",
+        label: "NO ACABAMENTO",
+        title: "É aqui que o detalhe ganha valor.",
+        description:
+            "Brilho, maciez, alinhamento e perfume ajudam a transformar uma boa finalização em uma experiência mais completa.",
+        detail:
+            "O acabamento não substitui o seu trabalho. Ele ajuda a revelar tudo o que você acabou de fazer.",
+    },
 
+    {
+        number: "03",
+        label: "DEPOIS DO SALÃO",
+        title: "E a experiência não precisa terminar ali.",
+        description:
+            "Quando a cliente gosta do que percebe, o produto usado na finalização pode continuar presente na rotina dela em casa.",
+        detail:
+            "A conversa pode sair do “o que você usou?” e chegar ao “posso levar um para mim?”.",
+    },
+];
+
+
+/* =====================================================
+   ANIMAÇÕES
+===================================================== */
+
+const headerVariants: Variants = {
+    hidden: {
+        opacity: 0,
+        y: 22,
+    },
+
+    visible: {
+        opacity: 1,
+        y: 0,
+
+        transition: {
+            duration: 0.7,
+            ease,
+        },
+    },
 };
 
 
-const benefitVariants: Variants = {
-
-  hidden: {
-
-    opacity: 0,
-
-    y: 25,
-
-    scale: 0.97,
-
-  },
-
-  visible: {
-
-    opacity: 1,
-
-    y: 0,
-
-    scale: 1,
-
-    transition: {
-
-      duration: 0.6,
-
-      ease: [
-        0.22,
-        1,
-        0.36,
-        1,
-      ],
-
+const cardVariants: Variants = {
+    hidden: {
+        opacity: 0,
+        y: 18,
     },
 
-  },
+    visible: (index: number) => ({
+        opacity: 1,
+        y: 0,
 
+        transition: {
+            duration: 0.6,
+            delay: index * 0.08,
+            ease,
+        },
+    }),
 };
 
 
 /* =====================================================
-   SOLUTION
+   SOLUTION / OPORTUNIDADE
 ===================================================== */
 
 function Solution() {
 
-  return (
+    const [activeStep, setActiveStep] = useState(0);
 
-    <section
-      className="solution"
-      id="beneficios"
-    >
-
-      <div className="container solution-container">
+    const currentStep =
+        opportunitySteps[activeStep];
 
 
-        {/* =================================================
-            IMAGEM
-        ================================================= */}
+    return (
 
-        <motion.div
-          className="solution-image"
-
-          initial={{
-            opacity: 0,
-            scale: 1.08,
-          }}
-
-          whileInView={{
-            opacity: 1,
-            scale: 1,
-          }}
-
-          viewport={{
-            once: true,
-            amount: 0.25,
-          }}
-
-          transition={{
-            duration: 1.2,
-            ease: [
-              0.22,
-              1,
-              0.36,
-              1,
-            ],
-          }}
+        <section
+            className="solution"
+            id="beneficios"
         >
 
-          <motion.img
-            src={`${import.meta.env.BASE_URL}images/model-fragrance.webp`}
+            <div className="solution-container">
 
-            alt="Mulher aplicando o Queridinho Supreme nos cabelos"
 
-            loading="lazy"
+                {/* =================================================
+                    CABEÇALHO
+                ================================================= */}
 
-            decoding="async"
+                <motion.div
+                    className="solution-header"
 
-            initial={{
-              scale: 1.08,
-            }}
+                    variants={headerVariants}
 
-            whileInView={{
-              scale: 1,
-            }}
+                    initial="hidden"
 
-            viewport={{
-              once: true,
-              amount: 0.25,
-            }}
+                    whileInView="visible"
 
-            transition={{
-              duration: 1.5,
-              ease: [
-                0.22,
-                1,
-                0.36,
-                1,
-              ],
-            }}
+                    viewport={{
+                        once: true,
+                        amount: 0.25,
+                    }}
+                >
 
-            whileHover={{
-              scale: 1.025,
-            }}
+                    <span className="solution-eyebrow">
+                        02 • OPORTUNIDADE
+                    </span>
 
-          />
 
-        </motion.div>
+                    <h2>
+                        Você já conquistou o mais difícil.
 
+                        <span>
+                            A cliente está na sua cadeira.
+                        </span>
+                    </h2>
 
-        {/* =================================================
-            CONTEÚDO
-        ================================================= */}
 
-        <motion.div
-          className="solution-content"
+                    <p>
+                        Agora, o último detalhe pode fazer parte
+                        da experiência — e abrir espaço para
+                        continuar essa relação depois do salão.
+                    </p>
 
-          variants={contentVariants}
+                </motion.div>
 
-          initial="hidden"
 
-          whileInView="visible"
+                {/* =================================================
+                    OPORTUNIDADES
+                ================================================= */}
 
-          viewport={{
-            once: true,
-            amount: 0.25,
-          }}
-        >
+                <div className="solution-opportunities">
 
 
-          {/* =================================================
-              TÍTULO
-          ================================================= */}
+                    {opportunitySteps.map(
+                        (step, index) => (
 
-          <motion.h2
-            variants={contentVariants}
-          >
+                            <motion.button
+                                key={step.number}
 
-            O toque final <br />
-            que muda o cabelo.
+                                type="button"
 
-            <span>
-              E muda a sensação de estar com ele.
-            </span>
+                                className={`solution-opportunity ${
+                                    activeStep === index
+                                        ? "is-active"
+                                        : ""
+                                }`}
 
-          </motion.h2>
+                                onClick={() =>
+                                    setActiveStep(index)
+                                }
 
+                                custom={index}
 
-          {/* =================================================
-              DESCRIÇÃO
-          ================================================= */}
+                                variants={cardVariants}
 
-          <motion.p
-            className="solution-description"
+                                initial="hidden"
 
-            variants={contentVariants}
-          >
+                                whileInView="visible"
 
-            Depois da finalização, os fios ficam mais Bonitos, Alinhados e Macios.
+                                viewport={{
+                                    once: true,
+                                    amount: 0.15,
+                                }}
 
-            <br />
+                                whileHover={{
+                                    y: -4,
+                                }}
 
-            E aquele <i>Perfume Sofisticado</i> faz parte da experiência.
+                                whileTap={{
+                                    scale: 0.99,
+                                }}
 
-          </motion.p>
+                                aria-pressed={
+                                    activeStep === index
+                                }
+                            >
 
+                                <div className="solution-opportunity-top">
 
-          {/* =================================================
-              BENEFÍCIOS
-          ================================================= */}
+                                    <span className="solution-opportunity-number">
+                                        {step.number}
+                                    </span>
 
-          <motion.div
-            className="solution-benefits"
+                                    <span className="solution-opportunity-label">
+                                        {step.label}
+                                    </span>
 
-            variants={
-              benefitsContainerVariants
-            }
-          >
+                                </div>
 
 
-            <motion.div
-              className="solution-item"
+                                <strong>
+                                    {step.title}
+                                </strong>
 
-              variants={benefitVariants}
 
-              whileHover={{
-                y: -5,
+                                <span className="solution-opportunity-arrow">
+                                    →
+                                </span>
 
-                boxShadow:
-                  "0 15px 35px rgba(0,0,0,.10)",
-              }}
-            >
+                            </motion.button>
 
-              <span aria-hidden="true">
-                ✓
-              </span>
+                        ),
+                    )}
 
-              <p>
-                Brilho que Aparece
-              </p>
+                </div>
 
-            </motion.div>
 
+                {/* =================================================
+                    CONTEÚDO ATIVO
+                ================================================= */}
 
-            <motion.div
-              className="solution-item"
+                <motion.div
+                    className="solution-stage"
 
-              variants={benefitVariants}
+                    key={currentStep.number}
 
-              whileHover={{
-                y: -5,
+                    initial={{
+                        opacity: 0,
+                        y: 18,
+                    }}
 
-                boxShadow:
-                  "0 15px 35px rgba(0,0,0,.10)",
-              }}
-            >
+                    animate={{
+                        opacity: 1,
+                        y: 0,
+                    }}
 
-              <span aria-hidden="true">
-                ✓
-              </span>
+                    transition={{
+                        duration: 0.5,
+                        ease,
+                    }}
+                >
 
-              <p>
-                Fios mais Alinhados
-              </p>
+                    <div className="solution-stage-meta">
 
-            </motion.div>
+                        <span>
+                            {currentStep.number}
+                        </span>
 
+                        <strong>
+                            {currentStep.label}
+                        </strong>
 
-            <motion.div
-              className="solution-item"
+                    </div>
 
-              variants={benefitVariants}
 
-              whileHover={{
-                y: -5,
+                    <div className="solution-stage-main">
 
-                boxShadow:
-                  "0 15px 35px rgba(0,0,0,.10)",
-              }}
-            >
+                        <div className="solution-stage-copy">
 
-              <span aria-hidden="true">
-                ✓
-              </span>
+                            <h3>
+                                {currentStep.title}
+                            </h3>
 
-              <p>
-                Toque Macio e Sedoso
-              </p>
 
-            </motion.div>
+                            <p className="solution-stage-description">
+                                {currentStep.description}
+                            </p>
 
+                        </div>
 
-            <motion.div
-              className="solution-item"
 
-              variants={benefitVariants}
+                        <div className="solution-stage-detail">
 
-              whileHover={{
-                y: -5,
+                            <span aria-hidden="true">
+                                ✦
+                            </span>
 
-                boxShadow:
-                  "0 15px 35px rgba(0,0,0,.10)",
-              }}
-            >
+                            <p>
+                                {currentStep.detail}
+                            </p>
 
-              <span aria-hidden="true">
-                ✓
-              </span>
+                        </div>
 
-              <p>
-                Fragrância que Marca
-              </p>
+                    </div>
 
-            </motion.div>
 
+                    {/* =================================================
+                        PROGRESSO
+                    ================================================= */}
 
-          </motion.div>
+                    <div
+                        className="solution-progress"
+                        aria-hidden="true"
+                    >
 
+                        {opportunitySteps.map(
+                            (step, index) => (
 
-          {/* =================================================
-              CTA
-          ================================================= */}
+                                <span
+                                    key={step.number}
+                                    className={
+                                        index === activeStep
+                                            ? "is-active"
+                                            : ""
+                                    }
+                                />
 
-          <motion.a
-            href="#comprar"
+                            ),
+                        )}
 
-            className="solution-button"
+                    </div>
 
-            variants={contentVariants}
+                </motion.div>
 
-            whileHover={{
-              y: -4,
 
-              scale: 1.02,
+                {/* =================================================
+                    PONTES DE OPORTUNIDADE
+                ================================================= */}
 
-              boxShadow:
-                "0 16px 35px rgba(236,116,4,.30)",
-            }}
+                <motion.div
+                    className="solution-points"
 
-            whileTap={{
-              scale: 0.97,
-            }}
-          >
+                    initial={{
+                        opacity: 0,
+                        y: 16,
+                    }}
 
-            QUERO ESSE RESULTADO
+                    whileInView={{
+                        opacity: 1,
+                        y: 0,
+                    }}
 
-          </motion.a>
+                    viewport={{
+                        once: true,
+                        amount: 0.2,
+                    }}
 
+                    transition={{
+                        duration: 0.65,
+                        delay: 0.08,
+                        ease,
+                    }}
+                >
 
-        </motion.div>
+                    <div className="solution-point">
 
-      </div>
+                        <span>
+                            01
+                        </span>
 
-    </section>
+                        <div>
+                            <strong>
+                                Você entrega.
+                            </strong>
 
-  );
+                            <p>
+                                O serviço termina com um resultado que você pode mostrar.
+                            </p>
+                        </div>
 
+                    </div>
+
+
+                    <div className="solution-point">
+
+                        <span>
+                            02
+                        </span>
+
+                        <div>
+                            <strong>
+                                Ela percebe.
+                            </strong>
+
+                            <p>
+                                O acabamento ajuda a tornar essa diferença visível.
+                            </p>
+                        </div>
+
+                    </div>
+
+
+                    <div className="solution-point">
+
+                        <span>
+                            03
+                        </span>
+
+                        <div>
+                            <strong>
+                                Ela pergunta.
+                            </strong>
+
+                            <p>
+                                E uma pergunta pode abrir uma nova conversa.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </motion.div>
+
+
+                {/* =================================================
+                    FECHAMENTO
+                ================================================= */}
+
+                <motion.div
+                    className="solution-closing"
+
+                    initial={{
+                        opacity: 0,
+                    }}
+
+                    whileInView={{
+                        opacity: 1,
+                    }}
+
+                    viewport={{
+                        once: true,
+                        amount: 0.25,
+                    }}
+
+                    transition={{
+                        duration: 0.7,
+                        delay: 0.1,
+                    }}
+                >
+
+                    <span className="solution-closing-line" />
+
+
+                    <div>
+
+                        <span className="solution-closing-eyebrow">
+                            A OPORTUNIDADE
+                        </span>
+
+
+                        <p>
+                            Quando o acabamento chama atenção,
+
+                            <strong>
+                                {" "}o produto deixa de ser só um detalhe
+                                e passa a fazer parte da experiência.
+                            </strong>
+                        </p>
+
+                    </div>
+
+                </motion.div>
+
+            </div>
+
+        </section>
+    );
 }
 
 

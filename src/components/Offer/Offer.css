@@ -1,950 +1,2075 @@
+/* =====================================================
+   OFFER / DECISÃO
+===================================================== */
+
 .offer {
+    width:
+        100%;
 
-    padding: 7rem 0 5rem;
+    padding:
+        7rem
+        0;
 
-    background: #151312;
+    background:
+        #151312;
 
-    overflow: hidden;
+    color:
+        #ffffff;
 
+    overflow:
+        hidden;
 }
 
 
-.offer .container {
+/* =====================================================
+   CONTAINER
+===================================================== */
 
-    width: min(1240px, 92%);
+.offer-container {
+    width:
+        min(
+            1120px,
+            92%
+        );
 
-    margin: auto;
-
+    margin-inline:
+        auto;
 }
 
 
-/* =========================
-   HEADER
-========================= */
+/* =====================================================
+   CABEÇALHO
+===================================================== */
 
 .offer-header {
+    max-width:
+        780px;
 
-    max-width: 760px;
+    margin:
+        0
+        auto
+        3rem;
 
-    margin: 0 auto 4.5rem;
-
-    text-align: center;
-
+    text-align:
+        center;
 }
 
 
 .offer-eyebrow {
+    display:
+        inline-block;
 
-    color: #EC7404;
+    margin-bottom:
+        .9rem;
 
-    font-size: .8rem;
+    color:
+        #ec7404;
 
-    font-weight: 700;
+    font-size:
+        .63rem;
 
-    letter-spacing: .22em;
+    font-weight:
+        800;
 
-    text-transform: uppercase;
+    letter-spacing:
+        .15em;
 
-    margin-bottom: 1rem;
-
+    line-height:
+        1.4;
 }
 
 
 .offer-header h2 {
+    margin:
+        0
+        0
+        1rem;
 
-    color: #fff;
+    color:
+        #ffffff;
 
-    font-size: clamp(2.8rem, 5vw, 4.8rem);
+    font-size:
+        clamp(
+            2.8rem,
+            5vw,
+            4.7rem
+        );
 
-    line-height: .98;
+    line-height:
+        .96;
 
-    font-weight: 700;
+    letter-spacing:
+        -.055em;
 
-    margin-bottom: 1.5rem;
-
+    font-weight:
+        700;
 }
 
 
-.offer-description {
+.offer-header h2 span {
+    display:
+        block;
 
-    max-width: 650px;
+    margin-top:
+        .07em;
 
-    margin: auto;
+    color:
+        #ec7404;
 
-    color: #c9c9c9;
+    font-family:
+        Georgia,
+        serif;
 
-    font-size: 1.05rem;
+    font-style:
+        italic;
 
-    line-height: 1.7;
+    font-weight:
+        400;
 
+    letter-spacing:
+        -.04em;
 }
 
 
-.offer-description strong {
+.offer-header > p {
+    max-width:
+        600px;
 
-    color: #fff;
+    margin:
+        0
+        auto;
 
+    color:
+        #aaa39d;
+
+    font-size:
+        .9rem;
+
+    line-height:
+        1.6;
 }
 
 
-/* =========================
-   GRID
-========================= */
+/* =====================================================
+   ESCOLHA
+===================================================== */
 
-.pricing-grid {
+.offer-choice {
+    max-width:
+        700px;
 
-    display: grid;
+    display:
+        grid;
 
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(
+                0,
+                1fr
+            )
+        );
 
-    gap: 2rem;
+    gap:
+        .7rem;
 
-    max-width: 980px;
-
-    margin: auto;
-
-    align-items: stretch;
-
+    margin:
+        0
+        auto
+        .8rem;
 }
 
 
-/* =========================
-   CARD
-========================= */
+.offer-choice-tab {
+    min-height:
+        74px;
 
-.pricing-card {
+    padding:
+        .85rem
+        1rem;
 
-    position: relative;
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .11
+        );
 
-    background: #fff;
+    border-radius:
+        .95rem;
 
-    border-radius: 28px;
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .035
+        );
 
-    padding: 2.2rem 2rem 1.8rem;
+    color:
+        #aaa39d;
 
-    display: flex;
+    text-align:
+        left;
 
-    flex-direction: column;
+    cursor:
+        pointer;
 
-    align-items: center;
+    transition:
+        transform
+        .25s
+        ease,
 
-    text-align: center;
+        background
+        .25s
+        ease,
+
+        border-color
+        .25s
+        ease,
+
+        color
+        .25s
+        ease;
+}
+
+
+.offer-choice-tab:hover {
+    transform:
+        translateY(
+            -2px
+        );
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .065
+        );
+}
+
+
+.offer-choice-tab.is-active {
+    border-color:
+        rgba(
+            236,
+            116,
+            4,
+            .75
+        );
+
+    background:
+        rgba(
+            236,
+            116,
+            4,
+            .08
+        );
+
+    color:
+        #ffffff;
+}
+
+
+.offer-choice-tab span,
+.offer-choice-tab strong {
+    display:
+        block;
+}
+
+
+.offer-choice-tab span {
+    margin-bottom:
+        .2rem;
+
+    color:
+        #ec7404;
+
+    font-size:
+        .54rem;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .12em;
+}
+
+
+.offer-choice-tab strong {
+    font-size:
+        .87rem;
+
+    line-height:
+        1.25;
+}
+
+
+/* =====================================================
+   OFERTA
+===================================================== */
+
+.offer-stage {
+    min-height:
+        490px;
+}
+
+
+.offer-product-card {
+    display:
+        grid;
+
+    grid-template-columns:
+        minmax(
+            0,
+            .9fr
+        )
+        minmax(
+            0,
+            1.1fr
+        );
+
+    min-height:
+        490px;
+
+    overflow:
+        hidden;
+
+    border:
+        1px solid
+        #e6ddd6;
+
+    border-radius:
+        1.45rem;
+
+    background:
+        #ffffff;
+
+    color:
+        #171412;
 
     box-shadow:
-        0 20px 60px rgba(0, 0, 0, .18);
-
-    will-change: transform;
-
+        0
+        25px
+        65px
+        rgba(
+            0,
+            0,
+            0,
+            .18
+        );
 }
 
 
-/* =========================
-   CARD DESTACADO
-========================= */
-
-.pricing-card.featured {
-
-    border: 3px solid #EC7404;
-
-    transform: scale(1.04);
-
-    box-shadow:
-        0 25px 70px rgba(236, 116, 4, .25);
-
-    z-index: 2;
-
+.offer-product-card.is-featured {
+    border-color:
+        rgba(
+            236,
+            116,
+            4,
+            .65
+        );
 }
 
 
-/* =========================
+/* =====================================================
+   VISUAL PRODUTO
+===================================================== */
+
+.offer-product-visual {
+    position:
+        relative;
+
+    min-height:
+        490px;
+
+    overflow:
+        hidden;
+
+    background:
+        #f4f1ee;
+}
+
+
+.offer-product-visual img {
+    width:
+        100%;
+
+    height:
+        100%;
+
+    display:
+        block;
+
+    object-fit:
+        cover;
+
+    object-position:
+        center;
+
+    transition:
+        transform
+        .8s
+        cubic-bezier(
+            .22,
+            1,
+            .36,
+            1
+        );
+}
+
+
+.offer-product-visual:hover img {
+    transform:
+        scale(
+            1.015
+        );
+}
+
+
+/* =====================================================
    BADGE
-========================= */
+===================================================== */
 
-.badge {
+.offer-badge {
+    position:
+        absolute;
 
-    position: absolute;
+    top:
+        1rem;
 
-    top: -18px;
+    left:
+        1rem;
 
-    left: 50%;
+    z-index:
+        2;
 
-    transform: translateX(-50%);
+    padding:
+        .45rem
+        .65rem;
 
-    white-space: nowrap;
+    border-radius:
+        999px;
 
-    background: #EC7404;
+    background:
+        #ec7404;
 
-    color: #fff;
+    color:
+        #ffffff;
 
-    padding: .6rem 1.5rem;
+    font-size:
+        .53rem;
 
-    border-radius: 999px;
+    font-weight:
+        800;
 
-    font-size: .72rem;
-
-    font-weight: 800;
-
-    letter-spacing: .1em;
+    letter-spacing:
+        .1em;
 
     box-shadow:
-        0 8px 20px rgba(236, 116, 4, .25);
-
+        0
+        10px
+        25px
+        rgba(
+            0,
+            0,
+            0,
+            .12
+        );
 }
 
 
-/* =========================
-   LABEL
-========================= */
+/* =====================================================
+   CONTEÚDO
+===================================================== */
 
-.card-label {
+.offer-product-content {
+    padding:
+        clamp(
+            2rem,
+            4vw,
+            3.7rem
+        );
 
-    color: #999;
+    display:
+        flex;
 
-    font-size: .75rem;
+    flex-direction:
+        column;
 
-    font-weight: 700;
-
-    letter-spacing: .08em;
-
-    text-transform: uppercase;
-
-    margin-bottom: .5rem;
-
+    justify-content:
+        center;
 }
 
 
-.featured-label {
+.offer-product-eyebrow {
+    margin-bottom:
+        .6rem;
 
-    color: #EC7404;
+    color:
+        #ec7404;
 
+    font-size:
+        .59rem;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .13em;
 }
 
 
-/* =========================
-   TITULO
-========================= */
+.offer-product-content h3 {
+    margin:
+        0
+        0
+        .75rem;
 
-.pricing-card h3 {
+    color:
+        #171412;
 
-    color: #151312;
+    font-size:
+        clamp(
+            2.1rem,
+            4vw,
+            3.55rem
+        );
 
-    font-size: 2rem;
+    line-height:
+        .98;
 
-    line-height: 1;
-
-    margin-bottom: .6rem;
-
+    letter-spacing:
+        -.05em;
 }
 
 
-/* =========================
-   DESCRIÇÃO
-========================= */
+.offer-product-description {
+    max-width:
+        460px;
 
-.card-description {
+    margin:
+        0
+        0
+        1.3rem;
 
-    max-width: 280px;
+    color:
+        #66605b;
 
-    color: #777;
+    font-size:
+        .87rem;
 
-    font-size: .9rem;
-
-    line-height: 1.5;
-
+    line-height:
+        1.58;
 }
 
 
-.card-description span {
-
-    color: #EC7404;
-
-    font-weight: 700;
-
-}
-
-
-/* =========================
-   PRODUTO
-========================= */
-
-.product-wrapper {
-
-    position: relative;
-
-    width: 100%;
-
-    height: 325px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    margin-bottom: -.5rem;
-
-    margin-top: -.5rem;
-
-    will-change: transform;
-
-}
-
-
-.pricing-image {
-
-    width: 100%;
-
-    max-width: 320px;
-
-    height: 320px;
-
-    object-fit: contain;
-
-    display: block;
-
-}
-
-
-.featured-product {
-
-    height: 385px;
-
-}
-
-
-.featured-image {
-
-    max-width: 380px;
-
-    height: 380px;
-
-}
-
-
-/* =========================
-   PREÇO ANTIGO
-========================= */
-
-.price-old {
-
-    color: #888;
-
-    font-size: .85rem;
-
-    margin-bottom: .15rem;
-
-    margin-top: 12px;
-
-}
-
-
-.price-old s {
-
-    color: #888;
-
-}
-
-
-/* =========================
+/* =====================================================
    PREÇO
-========================= */
+===================================================== */
 
-.price {
+.offer-price-area {
+    display:
+        flex;
 
-    display: flex;
+    flex-wrap:
+        wrap;
 
-    align-items: flex-start;
+    align-items:
+        flex-end;
 
-    justify-content: center;
+    gap:
+        .4rem
+        .7rem;
 
-    margin-bottom: .4rem;
-
+    margin-bottom:
+        1.2rem;
 }
 
 
-.price span {
+.offer-old-price {
+    width:
+        100%;
 
-    color: #151312;
+    margin:
+        0;
 
-    font-size: 1.25rem;
+    color:
+        #8d847d;
 
-    margin-top: .65rem;
-
+    font-size:
+        .72rem;
 }
 
 
-.price strong {
+.offer-price {
+    display:
+        flex;
 
-    color: #EC7404;
+    align-items:
+        baseline;
 
-    font-size: 4.6rem;
-
-    line-height: .9;
-
-    font-weight: 700;
-
+    line-height:
+        .9;
 }
 
 
-.price small {
+.offer-price > span {
+    margin-right:
+        .15rem;
 
-    color: #151312;
+    color:
+        #27221e;
 
-    font-size: 1.25rem;
+    font-size:
+        .85rem;
 
-    margin-top: .65rem;
-
+    font-weight:
+        700;
 }
 
 
-/* =========================
-   ECONOMIA
-========================= */
+.offer-price strong {
+    color:
+        #151312;
 
-.saving {
+    font-size:
+        3.8rem;
 
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background: #20a044;
-
-    color: #effaf2;
-
-    padding: .45rem .9rem;
-
-    border-radius: 5px;
-
-    font-size: .8rem;
-
-    font-weight: 700;
-
-    margin-bottom: 1.4rem;
-
-    margin-top: 0.8rem;
-
+    letter-spacing:
+        -.06em;
 }
 
 
-/* =========================
+.offer-price small {
+    color:
+        #151312;
+
+    font-size:
+        .95rem;
+
+    font-weight:
+        700;
+}
+
+
+.offer-unit-price,
+.offer-saving {
+    padding:
+        .32rem
+        .5rem;
+
+    border-radius:
+        999px;
+
+    font-size:
+        .59rem;
+
+    font-weight:
+        800;
+}
+
+
+.offer-unit-price {
+    background:
+        #f3efe9;
+
+    color:
+        #504942;
+}
+
+
+.offer-saving {
+    background:
+        #fff2e6;
+
+    color:
+        #ec7404;
+}
+
+
+/* =====================================================
    BENEFÍCIOS
-========================= */
+===================================================== */
 
-.pricing-benefits {
+.offer-benefits {
+    display:
+        grid;
 
-    list-style: none;
+    gap:
+        .48rem;
 
-    width: 100%;
+    margin:
+        0
+        0
+        1.35rem;
 
-    display: flex;
+    padding:
+        0;
 
-    flex-direction: column;
-
-    gap: .7rem;
-
-    margin: 0 0 1.6rem;
-
-    padding: 0;
-
+    list-style:
+        none;
 }
 
 
-.pricing-benefits li {
+.offer-benefits li {
+    display:
+        flex;
 
-    display: flex;
+    align-items:
+        center;
 
-    align-items: center;
+    gap:
+        .5rem;
 
-    justify-content: center;
+    color:
+        #44403c;
 
-    gap: .5rem;
+    font-size:
+        .77rem;
 
-    color: #555;
-
-    font-size: .92rem;
-
-    line-height: 1.3;
-
+    line-height:
+        1.35;
 }
 
 
-.benefit-check {
+.offer-benefits li span {
+    color:
+        #ec7404;
 
-    color: #22a447;
-
-    font-weight: 800;
-
+    font-weight:
+        900;
 }
 
 
-/* =========================
+/* =====================================================
    BOTÃO
-========================= */
+===================================================== */
 
-.pricing-button {
+.offer-button {
+    width:
+        fit-content;
 
-    width: 100%;
+    min-height:
+        55px;
 
-    min-height: 54px;
+    padding:
+        0
+        1.25rem;
 
-    display: flex;
+    display:
+        inline-flex;
 
-    justify-content: center;
+    align-items:
+        center;
 
-    align-items: center;
+    justify-content:
+        center;
 
-    padding: .9rem 1.2rem;
+    gap:
+        .7rem;
 
-    border: 0;
+    border-radius:
+        999px;
 
-    border-radius: 999px;
+    background:
+        #ec7404;
 
-    background: #151312;
+    color:
+        #ffffff;
 
-    color: #fff;
+    text-decoration:
+        none;
 
-    font-size: .95rem;
+    font-size:
+        .82rem;
 
-    font-weight: 700;
-
-    text-decoration: none;
-
-    cursor: pointer;
-
-    will-change: transform;
-
-}
-
-
-.featured-button {
-
-    background: #EC7404;
+    font-weight:
+        800;
 
     box-shadow:
-        0 8px 20px rgba(236, 116, 4, .2);
+        0
+        12px
+        30px
+        rgba(
+            236,
+            116,
+            4,
+            .22
+        );
 
+    transition:
+        transform
+        .25s
+        ease,
+
+        background
+        .25s
+        ease;
 }
 
 
-/* =========================
-   SEGURANÇA DO CARD
-========================= */
+.offer-button:hover {
+    transform:
+        translateY(
+            -3px
+        );
 
-.card-secure {
-
-    color: #999;
-
-    font-size: .72rem;
-
-    margin-top: .8rem;
-
+    background:
+        #d96802;
 }
 
 
-/* =========================
-   FOOTER DA OFERTA
-========================= */
-
-.offer-footer {
-
-    margin-top: 4rem;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    flex-wrap: wrap;
-
-    gap: 2rem;
-
-    color: #d6d6d6;
-
-    font-size: .9rem;
-
+.offer-button span {
+    font-size:
+        1rem;
 }
 
 
-.offer-trust-item {
+/* =====================================================
+   SEGURANÇA
+===================================================== */
 
-    display: flex;
+.offer-security {
+    margin:
+        .75rem
+        0
+        0;
 
-    align-items: center;
+    color:
+        #8b837c;
 
-    gap: .4rem;
-
+    font-size:
+        .62rem;
 }
 
 
-.trust-icon {
+/* =====================================================
+   TABELA DE OPORTUNIDADE
+===================================================== */
 
-    font-size: .9rem;
+.offer-opportunity {
+    margin-top:
+        1rem;
 
+    padding:
+        1.6rem;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .1
+        );
+
+    border-radius:
+        1.2rem;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .035
+        );
 }
 
 
-/* =========================
-   TEXTO FINAL
-========================= */
+.offer-opportunity-header {
+    max-width:
+        650px;
 
-.offer-bottom-text {
+    margin:
+        0
+        auto
+        1.3rem;
 
-    margin-top: 1.5rem;
-
-    text-align: center;
-
-    color: #777;
-
-    font-size: .8rem;
-
+    text-align:
+        center;
 }
 
 
-/* =========================
+.offer-opportunity-header > span {
+    display:
+        block;
+
+    margin-bottom:
+        .45rem;
+
+    color:
+        #ec7404;
+
+    font-size:
+        .52rem;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .13em;
+}
+
+
+.offer-opportunity-header h3 {
+    margin:
+        0
+        0
+        .55rem;
+
+    color:
+        #ffffff;
+
+    font-size:
+        clamp(
+            1.8rem,
+            3.5vw,
+            2.7rem
+        );
+
+    line-height:
+        .98;
+
+    letter-spacing:
+        -.04em;
+}
+
+
+.offer-opportunity-header h3 em {
+    margin-left:
+        .08em;
+
+    color:
+        #ec7404;
+
+    font-family:
+        Georgia,
+        serif;
+
+    font-style:
+        italic;
+
+    font-weight:
+        400;
+}
+
+
+.offer-opportunity-header p {
+    margin:
+        0;
+
+    color:
+        #8f8780;
+
+    font-size:
+        .7rem;
+
+    line-height:
+        1.5;
+}
+
+
+/* =====================================================
+   TABELAS
+===================================================== */
+
+.offer-table-wrap {
+    display:
+        grid;
+
+    grid-template-columns:
+        repeat(
+            2,
+            minmax(
+                0,
+                1fr
+            )
+        );
+
+    gap:
+        .7rem;
+}
+
+
+.offer-table {
+    width:
+        100%;
+
+    border-collapse:
+        collapse;
+
+    overflow:
+        hidden;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .08
+        );
+
+    border-radius:
+        .85rem;
+
+    background:
+        rgba(
+            0,
+            0,
+            0,
+            .12
+        );
+}
+
+
+.offer-table th,
+.offer-table td {
+    padding:
+        .78rem
+        .85rem;
+
+    border-bottom:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .07
+        );
+
+    text-align:
+        left;
+}
+
+
+.offer-table tr:last-child td {
+    border-bottom:
+        0;
+}
+
+
+.offer-table th {
+    color:
+        #ec7404;
+
+    font-size:
+        .55rem;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .1em;
+
+    text-transform:
+        uppercase;
+}
+
+
+.offer-table td {
+    color:
+        #a8a09a;
+
+    font-size:
+        .7rem;
+}
+
+
+.offer-table td:last-child {
+    color:
+        #ffffff;
+
+    text-align:
+        right;
+
+    font-weight:
+        700;
+}
+
+
+.offer-table .is-highlight td {
+    color:
+        #ec7404;
+
+    font-weight:
+        800;
+}
+
+
+.offer-table .is-highlight td:last-child {
+    color:
+        #ffffff;
+}
+
+
+.offer-table-note {
+    margin:
+        .75rem
+        0
+        0;
+
+    color:
+        #716a64;
+
+    font-size:
+        .59rem;
+
+    line-height:
+        1.5;
+
+    text-align:
+        center;
+}
+
+
+/* =====================================================
+   CAMINHO
+===================================================== */
+
+.offer-value-strip {
+    margin-top:
+        1rem;
+
+    padding:
+        1.15rem
+        1.25rem;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr
+        auto
+        1fr
+        auto
+        1fr;
+
+    align-items:
+        center;
+
+    gap:
+        .9rem;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .1
+        );
+
+    border-radius:
+        1rem;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .035
+        );
+
+    text-align:
+        center;
+}
+
+
+.offer-value-strip div span,
+.offer-value-strip div strong {
+    display:
+        block;
+}
+
+
+.offer-value-strip div span {
+    margin-bottom:
+        .18rem;
+
+    color:
+        #ec7404;
+
+    font-size:
+        .5rem;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .12em;
+}
+
+
+.offer-value-strip div strong {
+    color:
+        #ffffff;
+
+    font-size:
+        .69rem;
+}
+
+
+.offer-strip-arrow {
+    color:
+        #68615b;
+
+    font-size:
+        .95rem;
+}
+
+
+/* =====================================================
+   OBJEÇÕES
+===================================================== */
+
+.offer-objections {
+    margin-top:
+        5.8rem;
+}
+
+
+.objections-header {
+    max-width:
+        680px;
+
+    margin:
+        0
+        auto
+        2rem;
+
+    text-align:
+        center;
+}
+
+
+.objections-header > span {
+    display:
+        inline-block;
+
+    margin-bottom:
+        .75rem;
+
+    color:
+        #ec7404;
+
+    font-size:
+        .58rem;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .14em;
+}
+
+
+.objections-header h2 {
+    margin:
+        0
+        0
+        .75rem;
+
+    color:
+        #ffffff;
+
+    font-size:
+        clamp(
+            2.1rem,
+            4vw,
+            3.5rem
+        );
+
+    line-height:
+        .98;
+
+    letter-spacing:
+        -.045em;
+}
+
+
+.objections-header h2 em {
+    display:
+        block;
+
+    color:
+        #ec7404;
+
+    font-family:
+        Georgia,
+        serif;
+
+    font-style:
+        italic;
+
+    font-weight:
+        400;
+}
+
+
+.objections-header p {
+    max-width:
+        540px;
+
+    margin:
+        0
+        auto;
+
+    color:
+        #918982;
+
+    font-size:
+        .78rem;
+
+    line-height:
+        1.55;
+}
+
+
+.objections-list {
+    max-width:
+        820px;
+
+    margin:
+        0
+        auto;
+
+    display:
+        grid;
+
+    gap:
+        .55rem;
+}
+
+
+.objection {
+    width:
+        100%;
+
+    position:
+        relative;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr
+        auto;
+
+    align-items:
+        center;
+
+    column-gap:
+        1rem;
+
+    padding:
+        1.1rem
+        1.15rem;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .09
+        );
+
+    border-radius:
+        .9rem;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .035
+        );
+
+    color:
+        #ffffff;
+
+    text-align:
+        left;
+
+    cursor:
+        pointer;
+
+    transition:
+        transform
+        .25s
+        ease,
+
+        background
+        .25s
+        ease,
+
+        border-color
+        .25s
+        ease;
+}
+
+
+.objection:hover,
+.objection.is-open {
+    border-color:
+        rgba(
+            236,
+            116,
+            4,
+            .5
+        );
+
+    background:
+        rgba(
+            236,
+            116,
+            4,
+            .05
+        );
+}
+
+
+.objection-question {
+    font-size:
+        .81rem;
+
+    font-weight:
+        700;
+
+    line-height:
+        1.4;
+}
+
+
+.objection-icon {
+    width:
+        1.65rem;
+
+    height:
+        1.65rem;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border:
+        1px solid
+        rgba(
+            236,
+            116,
+            4,
+            .4
+        );
+
+    border-radius:
+        50%;
+
+    color:
+        #ec7404;
+
+    font-size:
+        .95rem;
+
+    line-height:
+        1;
+}
+
+
+.objection-answer {
+    grid-column:
+        1 / -1;
+
+    overflow:
+        hidden;
+
+    margin-top:
+        .75rem;
+
+    padding-top:
+        .75rem;
+
+    border-top:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .07
+        );
+
+    color:
+        #a79f98;
+
+    font-size:
+        .72rem;
+
+    line-height:
+        1.62;
+}
+
+
+/* =====================================================
+   FECHAMENTO
+===================================================== */
+
+.offer-closing {
+    margin:
+        2.2rem
+        auto
+        0;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        .45rem;
+
+    text-align:
+        center;
+}
+
+
+.offer-closing > span {
+    color:
+        #ec7404;
+
+    font-size:
+        .72rem;
+}
+
+
+.offer-closing p {
+    margin:
+        0;
+
+    color:
+        #918982;
+
+    font-size:
+        .72rem;
+
+    line-height:
+        1.5;
+}
+
+
+.offer-closing strong {
+    color:
+        #ffffff;
+
+    font-weight:
+        800;
+}
+
+
+/* =====================================================
    TABLET
-========================= */
+===================================================== */
 
-@media (max-width: 992px) {
+@media (max-width: 900px) {
 
     .offer {
-
-        padding: 6rem 0 4rem;
-
+        padding:
+            6rem
+            0;
     }
 
 
-    .pricing-grid {
-
-        grid-template-columns: 1fr;
-
-        max-width: 520px;
-
-        gap: 2.5rem;
-
+    .offer-product-card {
+        grid-template-columns:
+            1fr;
     }
 
 
-    .pricing-card.featured {
+    .offer-product-visual {
+        min-height:
+            400px;
 
-        transform: none;
-
+        aspect-ratio:
+            16 / 10;
     }
 
 
-    .pricing-card {
+    .offer-product-content {
+        padding:
+            2.2rem
+            2rem
+            2.4rem;
+    }
 
-        padding: 2.2rem 2rem 1.8rem;
 
+    .offer-table-wrap {
+        grid-template-columns:
+            1fr;
+    }
+
+
+    .offer-value-strip {
+        grid-template-columns:
+            repeat(
+                3,
+                1fr
+            );
+    }
+
+
+    .offer-strip-arrow {
+        display:
+            none;
     }
 
 }
 
 
-/* =========================
-   CELULAR
-========================= */
+/* =====================================================
+   MOBILE
+===================================================== */
 
-@media (max-width: 768px) {
+@media (max-width: 600px) {
 
     .offer {
-
-        padding: 5rem 0 3.5rem;
-
+        padding:
+            4.5rem
+            0;
     }
 
 
-    .offer .container {
-
-        width: min(100% - 2rem, 520px);
-
+    .offer-container {
+        width:
+            calc(
+                100% - 1.4rem
+            );
     }
 
+
+    /* =================================================
+       HEADER
+    ================================================= */
 
     .offer-header {
-
-        margin-bottom: 3.5rem;
-
+        margin-bottom:
+            1.9rem;
     }
 
 
     .offer-eyebrow {
+        font-size:
+            .54rem;
 
-        font-size: .72rem;
-
+        letter-spacing:
+            .11em;
     }
 
 
     .offer-header h2 {
-
-        font-size: 2.35rem;
-
-        line-height: 1;
-
+        font-size:
+            2.2rem;
     }
 
 
-    .offer-description {
+    .offer-header > p {
+        max-width:
+            330px;
 
-        font-size: .95rem;
+        font-size:
+            .79rem;
 
-        line-height: 1.65;
-
+        line-height:
+            1.55;
     }
 
 
-    .pricing-grid {
+    /* =================================================
+       ESCOLHA
+    ================================================= */
 
-        gap: 2rem;
-
-        max-width: 100%;
-
+    .offer-choice {
+        gap:
+            .45rem;
     }
 
 
-    .pricing-card {
+    .offer-choice-tab {
+        min-height:
+            65px;
 
-        border-radius: 24px;
+        padding:
+            .65rem
+            .7rem;
 
-        padding: 2rem 1.4rem 1.5rem;
-
+        border-radius:
+            .8rem;
     }
 
 
-    .pricing-card.featured {
-
-        border-width: 2px;
-
+    .offer-choice-tab span {
+        font-size:
+            .48rem;
     }
 
 
-    .badge {
-
-        top: -16px;
-
-        padding: .55rem 1.2rem;
-
-        font-size: .68rem;
-
+    .offer-choice-tab strong {
+        font-size:
+            .73rem;
     }
 
 
-    .pricing-card h3 {
+    /* =================================================
+       OFERTA
+    ================================================= */
 
-        font-size: 1.7rem;
-
+    .offer-stage {
+        min-height:
+            0;
     }
 
 
-    .card-description {
+    .offer-product-card {
+        min-height:
+            0;
 
-        font-size: .85rem;
-
-        margin-bottom: .5rem;
-
+        border-radius:
+            1.05rem;
     }
 
 
-    .product-wrapper {
+    .offer-product-visual {
+        min-height:
+            0;
 
-        height: 320px;
-
-        margin-bottom: .2rem;
-
+        aspect-ratio:
+            4 / 5;
     }
 
 
-    .pricing-image {
+    .offer-badge {
+        top:
+            .7rem;
 
-        max-width: 320px;
+        left:
+            .7rem;
 
-        height: 320px;
+        padding:
+            .4rem
+            .5rem;
 
+        font-size:
+            .47rem;
     }
 
 
-    .featured-product {
-
-        height: 330px;
-
+    .offer-product-content {
+        padding:
+            1.65rem
+            1rem
+            1.8rem;
     }
 
 
-    .featured-image {
-
-        max-width: 400px;
-
-        height: 400px;
-
+    .offer-product-eyebrow {
+        font-size:
+            .52rem;
     }
 
 
-    .price-old {
-
-        font-size: .8rem;
-
+    .offer-product-content h3 {
+        font-size:
+            2.05rem;
     }
 
 
-    .price strong {
+    .offer-product-description {
+        margin-bottom:
+            1rem;
 
-        font-size: 3.8rem;
-
+        font-size:
+            .79rem;
     }
 
 
-    .price span,
-    .price small {
-
-        font-size: 1.1rem;
-
-        margin-top: .55rem;
-
+    .offer-price-area {
+        margin-bottom:
+            1rem;
     }
 
 
-    .saving {
-
-        font-size: .75rem;
-
-        margin-bottom: 1.2rem;
-
+    .offer-price strong {
+        font-size:
+            3.3rem;
     }
 
 
-    .pricing-benefits {
-
-        gap: .65rem;
-
-        margin-bottom: 1.4rem;
-
+    .offer-unit-price,
+    .offer-saving {
+        font-size:
+            .53rem;
     }
 
 
-    .pricing-benefits li {
-
-        font-size: .88rem;
-
+    .offer-benefits li {
+        font-size:
+            .72rem;
     }
 
 
-    .pricing-button {
+    .offer-button {
+        width:
+            100%;
 
-        min-height: 52px;
+        min-height:
+            54px;
 
-        font-size: .9rem;
-
+        font-size:
+            .77rem;
     }
 
 
-    .card-secure {
-
-        font-size: .68rem;
-
+    .offer-security {
+        text-align:
+            center;
     }
 
 
-    .offer-footer {
+    /* =================================================
+       TABELA
+    ================================================= */
 
-        flex-direction: column;
+    .offer-opportunity {
+        margin-top:
+            .75rem;
 
-        gap: .8rem;
+        padding:
+            1rem;
 
-        margin-top: 3rem;
-
-        font-size: .82rem;
-
+        border-radius:
+            .9rem;
     }
 
 
-    .offer-bottom-text {
+    .offer-opportunity-header {
+        margin-bottom:
+            1rem;
+    }
 
-        font-size: .75rem;
 
-        line-height: 1.5;
+    .offer-opportunity-header > span {
+        font-size:
+            .47rem;
+    }
 
+
+    .offer-opportunity-header h3 {
+        font-size:
+            1.75rem;
+
+        line-height:
+            1;
+    }
+
+
+    .offer-opportunity-header p {
+        font-size:
+            .64rem;
+    }
+
+
+    .offer-table {
+        border-radius:
+            .72rem;
+    }
+
+
+    .offer-table th,
+    .offer-table td {
+        padding:
+            .65rem
+            .6rem;
+    }
+
+
+    .offer-table th {
+        font-size:
+            .47rem;
+    }
+
+
+    .offer-table td {
+        font-size:
+            .64rem;
+    }
+
+
+    .offer-table-note {
+        font-size:
+            .53rem;
+    }
+
+
+    /* =================================================
+       CAMINHO
+    ================================================= */
+
+    .offer-value-strip {
+        grid-template-columns:
+            1fr;
+
+        gap:
+            .75rem;
+
+        padding:
+            .95rem;
+
+        border-radius:
+            .85rem;
+    }
+
+
+    .offer-value-strip div strong {
+        font-size:
+            .65rem;
+    }
+
+
+    /* =================================================
+       OBJEÇÕES
+    ================================================= */
+
+    .offer-objections {
+        margin-top:
+            4.2rem;
+    }
+
+
+    .objections-header h2 {
+        font-size:
+            2.1rem;
+    }
+
+
+    .objections-header p {
+        max-width:
+            315px;
+
+        font-size:
+            .73rem;
+    }
+
+
+    .objection {
+        padding:
+            .9rem;
+    }
+
+
+    .objection-question {
+        font-size:
+            .74rem;
+    }
+
+
+    .objection-answer {
+        font-size:
+            .68rem;
+
+        line-height:
+            1.55;
+    }
+
+
+    /* =================================================
+       FECHAMENTO
+    ================================================= */
+
+    .offer-closing {
+        max-width:
+            315px;
+    }
+
+
+    .offer-closing p {
+        font-size:
+            .67rem;
     }
 
 }
 
 
-/* =========================
-   CELULARES PEQUENOS
-========================= */
+/* =====================================================
+   CELULAR PEQUENO
+===================================================== */
 
-@media (max-width: 380px) {
+@media (max-width: 400px) {
+
+    .offer {
+        padding:
+            4rem
+            0;
+    }
+
 
     .offer-header h2 {
-
-        font-size: 2.1rem;
-
+        font-size:
+            2rem;
     }
 
 
-    .pricing-card {
-
-        padding-left: 1.1rem;
-
-        padding-right: 1.1rem;
-
+    .offer-price strong {
+        font-size:
+            3rem;
     }
 
 
-    .product-wrapper {
-
-        height: 205px;
-
+    .offer-table td {
+        font-size:
+            .61rem;
     }
 
 
-    .pricing-image {
-
-        max-width: 195px;
-
-        height: 195px;
-
-    }
-
-
-    .featured-product {
-
-        height: 215px;
-
-    }
-
-
-    .featured-image {
-
-        max-width: 210px;
-
-        height: 210px;
-
-    }
-
-
-    .price strong {
-
-        font-size: 3.5rem;
-
+    .offer-opportunity-header h3 {
+        font-size:
+            1.65rem;
     }
 
 }
 
 
-/* =========================
+/* =====================================================
    ACESSIBILIDADE
-========================= */
+===================================================== */
 
 @media (prefers-reduced-motion: reduce) {
 
-    .pricing-card,
-    .product-wrapper,
-    .pricing-button {
+    .offer *,
+    .offer *::before,
+    .offer *::after {
 
-        transition: none !important;
+        scroll-behavior:
+            auto !important;
 
+        animation-duration:
+            .01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            .01ms !important;
     }
 
 }

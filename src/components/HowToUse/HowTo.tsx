@@ -1,151 +1,195 @@
-import { motion, type Variants } from "motion/react";
+import { useState } from "react";
+
+import {
+    AnimatePresence,
+    motion,
+    type Variants,
+} from "motion/react";
+
 import "./HowTo.css";
 
 
 /* =====================================================
-   ANIMAÇÃO DO HEADER
+   ANIMAÇÃO
 ===================================================== */
 
-const headerVariants: Variants = {
+const ease = [
+    0.22,
+    1,
+    0.36,
+    1,
+] as const;
+
+
+const fadeUp: Variants = {
 
     hidden: {
-
         opacity: 0,
-
-        y: 35,
-
+        y: 20,
     },
 
+
     visible: {
-
         opacity: 1,
-
         y: 0,
 
         transition: {
-
-            duration: 0.8,
-
-            ease: [
-                0.22,
-                1,
-                0.36,
-                1,
-            ],
-
+            duration: .65,
+            ease,
         },
-
     },
+
+};
+
+
+const cardVariants: Variants = {
+
+    hidden: {
+        opacity: 0,
+        y: 18,
+    },
+
+
+    visible: (index: number) => ({
+        opacity: 1,
+        y: 0,
+
+        transition: {
+            duration: .55,
+            delay: index * .07,
+            ease,
+        },
+    }),
 
 };
 
 
 /* =====================================================
-   ANIMAÇÃO DOS PASSOS
+   JORNADA
 ===================================================== */
 
-const stepsContainerVariants: Variants = {
+type JourneyStep = {
 
-    hidden: {},
+    number: string;
 
-    visible: {
+    eyebrow: string;
 
-        transition: {
+    title: string;
 
-            staggerChildren: 0.12,
+    description: string;
 
-            delayChildren: 0.15,
+    detail: string;
 
-        },
+    image: string;
 
-    },
-
-};
-
-
-const stepVariants: Variants = {
-
-    hidden: {
-
-        opacity: 0,
-
-        y: 35,
-
-        scale: 0.97,
-
-    },
-
-    visible: {
-
-        opacity: 1,
-
-        y: 0,
-
-        scale: 1,
-
-        transition: {
-
-            duration: 0.7,
-
-            ease: [
-                0.22,
-                1,
-                0.36,
-                1,
-            ],
-
-        },
-
-    },
+    imageAlt: string;
 
 };
+
+
+const journeySteps: JourneyStep[] = [
+
+    {
+        number: "01",
+
+        eyebrow: "NO SALÃO",
+
+        title: "Você finaliza.",
+
+        description:
+            "Depois da escova ou prancha, aplique uma pequena quantidade no comprimento e nas pontas.",
+
+        detail:
+            "1–2 pumps são suficientes para completar o último passo da produção.",
+
+        image:
+            "images/aplicando-na-mao.webp",
+
+        imageAlt:
+            "Cabeleireira aplicando o Queridinho Supreme nas mãos",
+    },
+
+
+    {
+        number: "02",
+
+        eyebrow: "O RESULTADO",
+
+        title: "Ela percebe.",
+
+        description:
+            "Brilho, maciez, alinhamento e perfume ajudam a deixar o acabamento mais completo e perceptível.",
+
+        detail:
+            "O resultado aparece no espelho e também na experiência do toque.",
+
+        image:
+            "images/finalizando.webp",
+
+        imageAlt:
+            "Cabelo sendo finalizado com o Queridinho Supreme",
+    },
+
+
+    {
+        number: "03",
+
+        eyebrow: "A REAÇÃO",
+
+        title: "Ela pergunta.",
+
+        description:
+            "Quando a cliente percebe uma diferença no acabamento, o produto usado no atendimento entra naturalmente na conversa.",
+
+        detail:
+            "“O que você passou no meu cabelo?”",
+
+        image:
+            "images/espalhando-no-cabelo.webp",
+
+        imageAlt:
+            "Profissional distribuindo o produto no comprimento e nas pontas",
+    },
+
+
+    {
+        number: "04",
+
+        eyebrow: "SALÃO → CASA",
+
+        title: "Ela leva para casa.",
+
+        description:
+            "Você pode indicar o mesmo produto para ela continuar a experiência na rotina de cuidados em casa.",
+
+        detail:
+            "Seu atendimento termina. O produto pode continuar presente depois dele.",
+
+        image:
+            "images/hero-supreme.webp",
+
+        imageAlt:
+            "Queridinho Supreme associado à experiência de cabelo finalizado",
+    },
+
+];
 
 
 /* =====================================================
-   ANIMAÇÃO DA DICA
-===================================================== */
-
-const tipVariants: Variants = {
-
-    hidden: {
-
-        opacity: 0,
-
-        y: 30,
-
-    },
-
-    visible: {
-
-        opacity: 1,
-
-        y: 0,
-
-        transition: {
-
-            duration: 0.7,
-
-            delay: 0.1,
-
-            ease: [
-                0.22,
-                1,
-                0.36,
-                1,
-            ],
-
-        },
-
-    },
-
-};
-
-
-/* =====================================================
-   HOW TO USE
+   COMPONENTE
 ===================================================== */
 
 function HowTo() {
+
+    const [
+        activeStep,
+        setActiveStep,
+    ] = useState(0);
+
+
+    const currentStep =
+        journeySteps[activeStep];
+
 
     return (
 
@@ -154,17 +198,17 @@ function HowTo() {
             id="como-usar"
         >
 
-            <div className="container">
+            <div className="howto-container">
 
 
                 {/* =================================================
-                    HEADER
+                    CABEÇALHO
                 ================================================= */}
 
                 <motion.div
                     className="howto-header"
 
-                    variants={headerVariants}
+                    variants={fadeUp}
 
                     initial="hidden"
 
@@ -172,41 +216,344 @@ function HowTo() {
 
                     viewport={{
                         once: true,
-                        amount: 0.3,
+                        amount: .25,
                     }}
                 >
 
-                    <p className="howto-eyebrow">
-                        COMO USAR
-                    </p>
+                    <span className="howto-eyebrow">
+                        05 • SALÃO → CASA
+                    </span>
 
 
                     <h2>
-                        Seu cabelo bonito em 3 passos.
+                        Você finaliza.
+
+                        <span>
+                            A experiência continua.
+                        </span>
                     </h2>
 
 
-                    <p className="howto-description">
-
-                        Um toque no comprimento.
-                        Espalhe nas pontas.
-                        Finalize como de costume.
-
+                    <p>
+                        O último passo acontece no salão.
+                        A percepção da cliente pode continuar
+                        depois dele.
                     </p>
 
                 </motion.div>
 
 
                 {/* =================================================
-                    PASSOS
+                    JORNADA
+                ================================================= */}
+
+                <div className="howto-journey">
+
+
+                    {/* =================================================
+                        NAVEGAÇÃO
+                    ================================================= */}
+
+                    <motion.div
+                        className="howto-navigation"
+
+                        initial="hidden"
+
+                        whileInView="visible"
+
+                        viewport={{
+                            once: true,
+                            amount: .15,
+                        }}
+
+                        variants={{
+                            hidden: {},
+
+                            visible: {
+                                transition: {
+                                    staggerChildren: .08,
+                                },
+                            },
+                        }}
+                    >
+
+                        {journeySteps.map(
+                            (
+                                step,
+                                index,
+                            ) => (
+
+                                <motion.button
+
+                                    key={
+                                        step.number
+                                    }
+
+                                    type="button"
+
+                                    className={`journey-tab ${
+                                        activeStep === index
+                                            ? "is-active"
+                                            : ""
+                                    }`}
+
+                                    onClick={() =>
+                                        setActiveStep(index)
+                                    }
+
+                                    aria-selected={
+                                        activeStep === index
+                                    }
+
+                                    variants={
+                                        cardVariants
+                                    }
+
+                                    custom={
+                                        index
+                                    }
+
+                                    whileTap={{
+                                        scale: .99,
+                                    }}
+                                >
+
+                                    <span className="journey-tab-number">
+                                        {step.number}
+                                    </span>
+
+
+                                    <span className="journey-tab-content">
+
+                                        <small>
+                                            {
+                                                step.eyebrow
+                                            }
+                                        </small>
+
+
+                                        <strong>
+                                            {
+                                                step.title
+                                            }
+                                        </strong>
+
+                                    </span>
+
+                                </motion.button>
+
+                            ),
+                        )}
+
+                    </motion.div>
+
+
+                    {/* =================================================
+                        PALCO
+                    ================================================= */}
+
+                    <motion.div
+                        className="howto-stage"
+
+                        key={
+                            currentStep.number
+                        }
+
+                        initial={{
+                            opacity: 0,
+                            y: 18,
+                        }}
+
+                        animate={{
+                            opacity: 1,
+                            y: 0,
+                        }}
+
+                        transition={{
+                            duration: .55,
+                            ease,
+                        }}
+                    >
+
+
+                        {/* =================================================
+                            IMAGEM
+                        ================================================= */}
+
+                        <div className="howto-stage-image">
+
+                            <AnimatePresence
+                                mode="wait"
+                            >
+
+                                <motion.img
+
+                                    key={
+                                        currentStep.image
+                                    }
+
+                                    src={
+                                        `${import.meta.env.BASE_URL}${currentStep.image}`
+                                    }
+
+                                    alt={
+                                        currentStep.imageAlt
+                                    }
+
+                                    loading="lazy"
+
+                                    decoding="async"
+
+                                    initial={{
+                                        opacity: 0,
+                                        scale: 1.03,
+                                    }}
+
+                                    animate={{
+                                        opacity: 1,
+                                        scale: 1,
+                                    }}
+
+                                    exit={{
+                                        opacity: 0,
+                                        scale: .985,
+                                    }}
+
+                                    transition={{
+                                        duration: .5,
+                                        ease,
+                                    }}
+
+                                />
+
+                            </AnimatePresence>
+
+
+                            <div className="howto-stage-badge">
+
+                                <span>
+                                    {
+                                        currentStep.number
+                                    }
+                                </span>
+
+
+                                <small>
+                                    {
+                                        currentStep.eyebrow
+                                    }
+                                </small>
+
+                            </div>
+
+                        </div>
+
+
+                        {/* =================================================
+                            CONTEÚDO
+                        ================================================= */}
+
+                        <div className="howto-stage-content">
+
+                            <AnimatePresence
+                                mode="wait"
+                            >
+
+                                <motion.div
+
+                                    key={
+                                        currentStep.number
+                                    }
+
+                                    className="howto-active-content"
+
+                                    variants={
+                                        fadeUp
+                                    }
+
+                                    initial="hidden"
+
+                                    animate="visible"
+
+                                    exit={{
+                                        opacity: 0,
+                                        y: -10,
+                                    }}
+                                >
+
+                                    <span className="howto-active-eyebrow">
+                                        {
+                                            currentStep.eyebrow
+                                        }
+                                    </span>
+
+
+                                    <h3>
+                                        {
+                                            currentStep.title
+                                        }
+                                    </h3>
+
+
+                                    <p className="howto-active-description">
+                                        {
+                                            currentStep.description
+                                        }
+                                    </p>
+
+
+                                    <div className="howto-detail">
+
+                                        <span aria-hidden="true">
+                                            ✦
+                                        </span>
+
+
+                                        <p>
+                                            {
+                                                currentStep.detail
+                                            }
+                                        </p>
+
+                                    </div>
+
+                                </motion.div>
+
+                            </AnimatePresence>
+
+
+                            {/* =================================================
+                                SEQUÊNCIA
+                            ================================================= */}
+
+                            <div className="howto-sequence">
+
+                                <span className="sequence-line" />
+
+
+                                <p>
+                                    Você entrega o resultado.
+
+                                    <strong>
+                                        {" "}Ela leva a experiência com ela.
+                                    </strong>
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </motion.div>
+
+                </div>
+
+
+                {/* =================================================
+                    COMO USAR — RESUMO
                 ================================================= */}
 
                 <motion.div
-                    className="howto-steps"
-
-                    variants={
-                        stepsContainerVariants
-                    }
+                    className="howto-mini-steps"
 
                     initial="hidden"
 
@@ -214,230 +561,117 @@ function HowTo() {
 
                     viewport={{
                         once: true,
-                        amount: 0.15,
+                        amount: .2,
+                    }}
+
+                    variants={{
+                        hidden: {},
+
+                        visible: {
+                            transition: {
+                                staggerChildren: .1,
+                            },
+                        },
                     }}
                 >
 
+                    <motion.div
+                        className="mini-step"
 
-                    {/* =================================================
-                        PASSO 01
-                    ================================================= */}
+                        variants={cardVariants}
 
-                    <motion.article
-                        className="step"
-
-                        variants={stepVariants}
+                        custom={0}
                     >
 
-                        <div className="step-number">
+                        <span>
                             01
-                        </div>
+                        </span>
 
 
-                        <motion.div
-                            className="step-image"
+                        <div>
 
-                            whileHover={{
-                                y: -6,
-                                scale: 1.015,
-                            }}
-
-                            transition={{
-                                duration: 0.35,
-
-                                ease: [
-                                    0.22,
-                                    1,
-                                    0.36,
-                                    1,
-                                ],
-                            }}
-                        >
-
-                            <img
-                                src={`${import.meta.env.BASE_URL}images/aplicando-na-mao.webp`}
-
-                                alt="Aplicando o Queridinho Supreme na palma das mãos"
-
-                                loading="lazy"
-
-                                decoding="async"
-                            />
-
-                        </motion.div>
-
-
-                        <div className="step-content">
-
-                            <h3>
+                            <strong>
                                 Aplique
-                            </h3>
+                            </strong>
+
 
                             <p>
-                                1 ou 2 pumps na palma das mãos.
+                                1–2 pumps nas mãos.
                             </p>
 
                         </div>
 
-                    </motion.article>
+                    </motion.div>
 
 
-                    {/* =================================================
-                        DIVISOR
-                    ================================================= */}
+                    <motion.div
+                        className="mini-step"
 
-                    <div
-                        className="step-line"
-                        aria-hidden="true"
-                    ></div>
+                        variants={cardVariants}
 
-
-                    {/* =================================================
-                        PASSO 02
-                    ================================================= */}
-
-                    <motion.article
-                        className="step"
-
-                        variants={stepVariants}
+                        custom={1}
                     >
 
-                        <div className="step-number">
+                        <span>
                             02
-                        </div>
+                        </span>
 
 
-                        <motion.div
-                            className="step-image"
+                        <div>
 
-                            whileHover={{
-                                y: -6,
-                                scale: 1.015,
-                            }}
+                            <strong>
+                                Distribua
+                            </strong>
 
-                            transition={{
-                                duration: 0.35,
-
-                                ease: [
-                                    0.22,
-                                    1,
-                                    0.36,
-                                    1,
-                                ],
-                            }}
-                        >
-
-                            <img
-                                src={`${import.meta.env.BASE_URL}images/espalhando-no-cabelo.webp`}
-
-                                alt="Aplicando o Queridinho Supreme no comprimento e nas pontas dos cabelos"
-
-                                loading="lazy"
-
-                                decoding="async"
-                            />
-
-                        </motion.div>
-
-
-                        <div className="step-content">
-
-                            <h3>
-                                Espalhe
-                            </h3>
 
                             <p>
-                                Passe no comprimento e nas pontas. Evite a raiz.
+                                Comprimento e pontas.
                             </p>
 
                         </div>
 
-                    </motion.article>
+                    </motion.div>
 
 
-                    {/* =================================================
-                        DIVISOR
-                    ================================================= */}
+                    <motion.div
+                        className="mini-step"
 
-                    <div
-                        className="step-line"
-                        aria-hidden="true"
-                    ></div>
+                        variants={cardVariants}
 
-
-                    {/* =================================================
-                        PASSO 03
-                    ================================================= */}
-
-                    <motion.article
-                        className="step"
-
-                        variants={stepVariants}
+                        custom={2}
                     >
 
-                        <div className="step-number">
+                        <span>
                             03
-                        </div>
+                        </span>
 
 
-                        <motion.div
-                            className="step-image"
+                        <div>
 
-                            whileHover={{
-                                y: -6,
-                                scale: 1.015,
-                            }}
-
-                            transition={{
-                                duration: 0.35,
-
-                                ease: [
-                                    0.22,
-                                    1,
-                                    0.36,
-                                    1,
-                                ],
-                            }}
-                        >
-
-                            <img
-                                src={`${import.meta.env.BASE_URL}images/finalizando.webp`}
-
-                                alt="Cabelos finalizados com o Queridinho Supreme"
-
-                                loading="lazy"
-
-                                decoding="async"
-                            />
-
-                        </motion.div>
-
-
-                        <div className="step-content">
-
-                            <h3>
+                            <strong>
                                 Finalize
-                            </h3>
+                            </strong>
+
 
                             <p>
-                                Pronto. Cabelos Alinhados, Macios e Perfumados.
+                                Sem enxágue.
                             </p>
 
                         </div>
 
-                    </motion.article>
+                    </motion.div>
 
                 </motion.div>
 
 
                 {/* =================================================
-                    DICA
+                    FECHAMENTO
                 ================================================= */}
 
                 <motion.div
-                    className="howto-tip"
+                    className="howto-closing"
 
-                    variants={tipVariants}
+                    variants={fadeUp}
 
                     initial="hidden"
 
@@ -445,19 +679,21 @@ function HowTo() {
 
                     viewport={{
                         once: true,
-                        amount: 0.25,
+                        amount: .25,
                     }}
                 >
 
-                    <span
-                        aria-hidden="true"
-                    >
-                        ✨
+                    <span className="howto-closing-mark">
+                        ✦
                     </span>
 
 
                     <p>
-                        Pode usar no cabelo seco ou úmido. Não precisa enxaguar.
+                        Você entrega o resultado.
+
+                        <strong>
+                            {" "}O Queridinho ajuda a entregar o acabamento.
+                        </strong>
                     </p>
 
                 </motion.div>
@@ -465,9 +701,7 @@ function HowTo() {
             </div>
 
         </section>
-
     );
-
 }
 
 

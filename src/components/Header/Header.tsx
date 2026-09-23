@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import type { FormEvent } from "react";
+import "./Header.css";
 
 /**
  * ==========================================================
@@ -70,6 +72,40 @@ interface HeaderResponse {
 interface WooCart {
   items_count?: number;
 }
+
+
+/* ==========================================================
+ * FALLBACK DO MENU
+ * ==========================================================
+ *
+ * O Header não precisa esperar a API do WordPress para
+ * aparecer. Estes links são usados imediatamente no primeiro
+ * render e são substituídos pelos dados reais da API quando
+ * ela responder.
+ */
+
+const fallbackMenu: HeaderMenuItem[] = [
+  {
+    id: 4418,
+    label: "Linha Dignity Renewed",
+    url: "/categoria-produto/linhas/linha-dignity-renewed/",
+  },
+  {
+    id: 6757,
+    label: "Linha Queridinho",
+    url: "/categoria-produto/linhas/linha-queridinho/",
+  },
+  {
+    id: 7729,
+    label: "Linha VantLiss",
+    url: "/categoria-produto/linha-vantliss/",
+  },
+  {
+    id: 9365,
+    label: "Kits Atacado",
+    url: "/categoria-produto/kits-atacado/",
+  },
+];
 
 
 /* ==========================================================
@@ -229,8 +265,6 @@ export default function Header() {
   const [searchValue, setSearchValue] =
     useState("");
 
-  const [loading, setLoading] =
-    useState(true);
 
 
   /* ========================================================
@@ -307,16 +341,9 @@ export default function Header() {
           error
         );
 
-      } finally {
-
-        if (!cancelled) {
-          setLoading(false);
-        }
-
       }
 
     }
-
 
     loadHeader();
 
@@ -336,6 +363,15 @@ export default function Header() {
 
     let cancelled = false;
 
+
+    /*
+     * --------------------------------------------------------
+     * BUSCA A QUANTIDADE REAL
+     * --------------------------------------------------------
+     *
+     * A fonte continua sendo o Store API do WooCommerce.
+     * Não criamos um contador separado.
+     */
 
     async function loadCart() {
 
@@ -383,6 +419,12 @@ export default function Header() {
         );
 
 
+        /*
+         * Sempre atualiza o estado.
+         *
+         * Inclusive quando a quantidade volta para ZERO.
+         */
+
         setCartQuantity(quantity);
 
       } catch (error) {
@@ -401,6 +443,109 @@ export default function Header() {
     }
 
 
+    /*
+     * --------------------------------------------------------
+     * EVENTOS NATIVOS
+     * --------------------------------------------------------
+     *
+     * Alguns componentes da loja podem disparar eventos
+     * diretamente no window/document.
+     */
+
+    const handleNativeCartUpdate = () => {
+      loadCart();
+    };
+
+
+    const nativeEvents = [
+      "vanti-cart-updated",
+      "wc-cart-updated",
+      "updated_wc_div",
+      "updated_cart_totals",
+      "updated_shipping_method",
+      "wc_fragments_loaded",
+      "wc_fragments_refreshed",
+      "added_to_cart",
+      "removed_from_cart",
+    ];
+
+
+    nativeEvents.forEach((eventName) => {
+
+      window.addEventListener(
+        eventName,
+        handleNativeCartUpdate
+      );
+
+      document.addEventListener(
+        eventName,
+        handleNativeCartUpdate
+      );
+
+    });
+
+
+    /*
+     * --------------------------------------------------------
+     * EVENTOS JQUERY DO WOOCOMMERCE
+     * --------------------------------------------------------
+     *
+     * O WooCommerce tradicional dispara vários eventos
+     * pelo jQuery. Escutamos esses eventos também para que
+     * o contador funcione tanto no desktop quanto no mobile.
+     */
+
+    const jq =
+      (
+        window as Window & {
+          jQuery?: any;
+        }
+      ).jQuery;
+
+
+    const jqueryEvents =
+      [
+        "added_to_cart",
+        "removed_from_cart",
+        "updated_wc_div",
+        "updated_cart_totals",
+        "updated_shipping_method",
+        "wc_fragments_loaded",
+        "wc_fragments_refreshed",
+        "wc_fragments_ajax_error",
+      ].join(" ");
+
+
+    if (
+      jq &&
+      typeof jq === "function"
+    ) {
+
+      try {
+
+        jq(document.body).on(
+          jqueryEvents,
+          handleNativeCartUpdate
+        );
+
+      } catch (error) {
+
+        console.warn(
+          "[WooCommerce] Não foi possível registrar eventos jQuery:",
+          error
+        );
+
+      }
+
+    }
+
+
+    /*
+     * --------------------------------------------------------
+     * PRIMEIRA LEITURA
+     * --------------------------------------------------------
+     */
+
     loadCart();
 
 
@@ -418,15 +563,77 @@ export default function Header() {
       );
 
 
+    /*
+     * --------------------------------------------------------
+     * FALLBACK DE SINCRONIZAÇÃO
+     * --------------------------------------------------------
+     *
+     * Alguns plugins/fluxos de checkout não disparam os
+     * eventos tradicionais. Por isso fazemos uma consulta
+     * leve a cada 2 segundos.
+     *
+     * Continua usando o WooCommerce como fonte oficial.
+     */
+
+    const interval =
+      window.setInterval(
+        loadCart,
+        1500
+      );
+
+
     return () => {
 
       cancelled = true;
 
       window.clearTimeout(timer);
 
+      window.clearInterval(interval);
+
+
+      nativeEvents.forEach((eventName) => {
+
+        window.removeEventListener(
+          eventName,
+          handleNativeCartUpdate
+        );
+
+        document.removeEventListener(
+          eventName,
+          handleNativeCartUpdate
+        );
+
+      });
+
+
+      if (
+        jq &&
+        typeof jq === "function"
+      ) {
+
+        try {
+
+          jq(document.body).off(
+            jqueryEvents,
+            handleNativeCartUpdate
+          );
+
+        } catch (error) {
+
+          console.warn(
+            "[WooCommerce] Não foi possível remover eventos jQuery:",
+            error
+          );
+
+        }
+
+      }
+
     };
 
   }, []);
+
+
 
 
   /* ========================================================
@@ -569,7 +776,7 @@ export default function Header() {
    * ======================================================== */
 
   function handleSearchSubmit(
-    event: React.FormEvent<HTMLFormElement>
+    event: FormEvent<HTMLFormElement>
   ) {
 
     event.preventDefault();
@@ -636,7 +843,65 @@ export default function Header() {
 
 
   /* ========================================================
-   * 9. BUSCA TOGGLE
+   * 9. FECHA BUSCA AO CLICAR FORA
+   * ======================================================== */
+
+  useEffect(() => {
+
+    if (!searchOpen) {
+      return;
+    }
+
+
+    function handleClickOutsideSearch(event: MouseEvent) {
+
+      const target = event.target as Element | null;
+
+      if (!target) {
+        return;
+      }
+
+
+      /*
+       * Mantém a busca aberta quando o clique acontece:
+       * - dentro da barra de pesquisa;
+       * - no próprio botão/ícone que abre a pesquisa.
+       *
+       * Qualquer outro clique fecha a busca.
+       */
+      if (
+        target.closest(".vanti-header-search-panel") ||
+        target.closest(".vanti-header-search-trigger")
+      ) {
+        return;
+      }
+
+
+      setSearchOpen(false);
+
+    }
+
+
+    document.addEventListener(
+      "mousedown",
+      handleClickOutsideSearch
+    );
+
+
+    return () => {
+
+      document.removeEventListener(
+        "mousedown",
+        handleClickOutsideSearch
+      );
+
+    };
+
+  }, [searchOpen]);
+
+
+  /* ========================================================
+   * 10. BUSCA TOGGLE
    * ======================================================== */
 
   function handleSearchToggle() {
@@ -646,17 +911,6 @@ export default function Header() {
     setSearchOpen(
       (current) => !current
     );
-
-  }
-
-
-  /* ========================================================
-   * 10. LOADING
-   * ======================================================== */
-
-  if (loading && !headerData) {
-
-    return null;
 
   }
 
@@ -681,7 +935,9 @@ export default function Header() {
 
 
   const menu =
-    headerData?.menu || [];
+    headerData?.menu?.length
+      ? headerData.menu
+      : fallbackMenu;
 
 
   /* ========================================================
@@ -690,323 +946,7 @@ export default function Header() {
 
   return (
     <>
-      <style>
-        {`
-          .vanti-react-header {
-            position: relative;
-            z-index: 9999;
-            width: 100%;
-            background: #ffffff;
-          }
 
-          .vanti-react-header *,
-          .vanti-react-header *::before,
-          .vanti-react-header *::after {
-            box-sizing: border-box;
-          }
-
-          .vanti-header-announcement {
-            width: 100%;
-            overflow: hidden;
-            background: #111111;
-            color: #ffffff;
-            height: 34px;
-            display: flex;
-            align-items: center;
-          }
-
-          .vanti-header-announcement-track {
-            width: max-content;
-            display: flex;
-            white-space: nowrap;
-            animation: vantiHeaderAnnouncement 35s linear infinite;
-          }
-
-          .vanti-header-announcement-text {
-            margin: 0;
-            padding-right: 70px;
-            font-size: 11px;
-            line-height: 1;
-            font-weight: 500;
-            letter-spacing: 0.08em;
-          }
-
-          @keyframes vantiHeaderAnnouncement {
-            from {
-              transform: translateX(0);
-            }
-
-            to {
-              transform: translateX(-50%);
-            }
-          }
-
-          .vanti-header-main {
-            position: sticky;
-            top: 0;
-            width: 100%;
-            background: #ffffff;
-            border-bottom: 1px solid rgba(17, 17, 17, 0.08);
-          }
-
-          .vanti-header-container {
-            width: min(100% - 48px, 1400px);
-            min-height: 86px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-            align-items: center;
-            column-gap: 40px;
-          }
-
-          .vanti-header-logo {
-            display: flex;
-            align-items: center;
-            width: 145px;
-            text-decoration: none;
-            flex-shrink: 0;
-          }
-
-          .vanti-header-logo img {
-            display: block;
-            width: 100%;
-            height: auto;
-          }
-
-          .vanti-header-navigation {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 0;
-          }
-
-          .vanti-header-menu {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: clamp(18px, 2vw, 34px);
-            margin: 0;
-            padding: 0;
-            list-style: none;
-          }
-
-          .vanti-header-menu-item {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-          }
-
-          .vanti-header-menu-link {
-            display: inline-flex;
-            align-items: center;
-            min-height: 40px;
-            color: #111111;
-            text-decoration: none;
-            white-space: nowrap;
-            font-size: 13px;
-            font-weight: 500;
-            letter-spacing: 0.01em;
-            transition: opacity 0.2s ease;
-          }
-
-          .vanti-header-menu-link:hover {
-            opacity: 0.55;
-          }
-
-          .vanti-header-actions {
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            gap: 14px;
-          }
-
-          .vanti-header-action {
-            position: relative;
-            width: 42px;
-            height: 42px;
-            padding: 0;
-            border: 0;
-            background: transparent;
-            color: #111111;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            text-decoration: none;
-          }
-
-          .vanti-header-action:hover {
-            opacity: 0.65;
-          }
-
-          .vanti-header-cart-badge {
-            position: absolute;
-            top: 1px;
-            right: 0;
-            min-width: 18px;
-            height: 18px;
-            padding: 0 5px;
-            border-radius: 999px;
-            background: #ec7404;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            line-height: 1;
-            font-weight: 700;
-          }
-
-          .vanti-header-search-panel {
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 100%;
-            background: #ffffff;
-            border-bottom: 1px solid rgba(17, 17, 17, 0.1);
-            padding: 18px 24px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-          }
-
-          .vanti-header-search-form {
-            width: min(100%, 760px);
-            margin: 0 auto;
-            display: flex;
-            align-items: center;
-            border: 1px solid #d8d8d8;
-            border-radius: 2px;
-            overflow: hidden;
-          }
-
-          .vanti-header-search-input {
-            flex: 1;
-            width: 100%;
-            height: 46px;
-            padding: 0 15px;
-            border: 0;
-            outline: 0;
-            background: #ffffff;
-            color: #111111;
-            font-size: 14px;
-          }
-
-          .vanti-header-search-submit {
-            width: 52px;
-            height: 46px;
-            border: 0;
-            background: #111111;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-          }
-
-          .vanti-header-mobile-button {
-            display: none;
-          }
-
-          .vanti-header-mobile-menu {
-            display: none;
-          }
-
-          @media (max-width: 900px) {
-
-            .vanti-header-announcement {
-              height: 30px;
-            }
-
-            .vanti-header-announcement-text {
-              font-size: 9px;
-            }
-
-            .vanti-header-container {
-              width: min(100% - 28px, 1400px);
-              min-height: 72px;
-              grid-template-columns: auto 1fr auto;
-              column-gap: 12px;
-            }
-
-            .vanti-header-logo {
-              width: 125px;
-            }
-
-            .vanti-header-navigation {
-              display: none;
-            }
-
-            .vanti-header-actions {
-              gap: 2px;
-            }
-
-            .vanti-header-mobile-button {
-              display: inline-flex;
-            }
-
-            .vanti-header-mobile-menu {
-              position: absolute;
-              left: 0;
-              right: 0;
-              top: 100%;
-              display: block;
-              background: #ffffff;
-              border-top: 1px solid rgba(17, 17, 17, 0.06);
-              border-bottom: 1px solid rgba(17, 17, 17, 0.1);
-              box-shadow: 0 12px 25px rgba(0, 0, 0, 0.08);
-            }
-
-            .vanti-header-mobile-list {
-              margin: 0;
-              padding: 8px 24px 18px;
-              list-style: none;
-            }
-
-            .vanti-header-mobile-item {
-              margin: 0;
-              padding: 0;
-              list-style: none;
-              border-bottom: 1px solid rgba(17, 17, 17, 0.08);
-            }
-
-            .vanti-header-mobile-link {
-              display: flex;
-              align-items: center;
-              min-height: 54px;
-              color: #111111;
-              text-decoration: none;
-              font-size: 14px;
-              font-weight: 500;
-            }
-
-            .vanti-header-mobile-link:hover {
-              opacity: 0.6;
-            }
-
-          }
-
-          @media (max-width: 480px) {
-
-            .vanti-header-container {
-              width: calc(100% - 20px);
-            }
-
-            .vanti-header-logo {
-              width: 112px;
-            }
-
-            .vanti-header-action {
-              width: 38px;
-              height: 38px;
-            }
-
-            .vanti-header-cart-badge {
-              top: 0;
-              right: -1px;
-            }
-
-          }
-        `}
-      </style>
 
 
       <header className="vanti-react-header">
@@ -1021,17 +961,18 @@ export default function Header() {
           <div className="vanti-header-announcement-track">
 
             <span className="vanti-header-announcement-text">
-              MARCA QUE ATENDE MAIS DE 5.000 PROFISSIONAIS DA BELEZA
-              • PRODUTOS PROFISSIONAIS PARA ALISAMENTO, RECONSTRUÇÃO
-              E FINALIZAÇÃO • FRETE GRÁTIS ACIMA DE R$297,00 POR
-              REGIÃO* • 10% NA 1ª COMPRA COM CUPOM VANTIPRO •
+              <span>• MARCA QUE ATENDE MAIS DE 5.000 PROFISSIONAIS DA BELEZA</span>
+              <span>• PRODUTOS PROFISSIONAIS PARA ALISAMENTO, RECONSTRUÇÃO E FINALIZAÇÃO</span>
+              <span>• FRETE GRÁTIS ACIMA DE R$297,00 POR REGIÃO</span>
+              <span>• 10% NA 1ª COMPRA COM CUPOM VANTIPRO</span>
             </span>
 
             <span className="vanti-header-announcement-text">
-              MARCA QUE ATENDE MAIS DE 5.000 PROFISSIONAIS DA BELEZA
-              • PRODUTOS PROFISSIONAIS PARA ALISAMENTO, RECONSTRUÇÃO
-              E FINALIZAÇÃO • FRETE GRÁTIS ACIMA DE R$297,00 POR
-              REGIÃO* • 10% NA 1ª COMPRA COM CUPOM VANTIPRO •
+              <span>• MARCA QUE ATENDE MAIS DE 5.000 PROFISSIONAIS DA BELEZA</span>
+              <span>• PRODUTOS PROFISSIONAIS PARA ALISAMENTO, RECONSTRUÇÃO E FINALIZAÇÃO</span>
+              <span>• FRETE GRÁTIS ACIMA DE R$297,00 POR REGIÃO*</span>
+              <span>• 10% NA 1ª COMPRA COM CUPOM VANTIPRO</span>
+              <span>•</span>
             </span>
 
           </div>
@@ -1155,7 +1096,7 @@ export default function Header() {
 
               <button
                 type="button"
-                className="vanti-header-action"
+                className="vanti-header-action vanti-header-search-trigger"
                 onClick={handleSearchToggle}
                 aria-label="Pesquisar"
                 aria-expanded={
@@ -1185,18 +1126,14 @@ export default function Header() {
 
                 <CartIcon />
 
-                {cartQuantity > 0 && (
+                <span
+                  className="vanti-header-cart-badge"
+                  aria-label={`${cartQuantity} itens`}
+                >
 
-                  <span
-                    className="vanti-header-cart-badge"
-                    aria-label={`${cartQuantity} itens`}
-                  >
+                  {cartQuantity}
 
-                    {cartQuantity}
-
-                  </span>
-
-                )}
+                </span>
 
               </button>
 

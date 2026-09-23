@@ -9,21 +9,14 @@ const ease = [0.22, 1, 0.36, 1] as const;
 ===================================================== */
 
 const containerVariants: Variants = {
-
     hidden: {},
 
     visible: {
-
         transition: {
-
             staggerChildren: 0.09,
-
-            delayChildren: 0.15,
-
+            delayChildren: 0.12,
         },
-
     },
-
 };
 
 
@@ -32,31 +25,20 @@ const containerVariants: Variants = {
 ===================================================== */
 
 const itemVariants: Variants = {
-
     hidden: {
-
         opacity: 0,
-
-        y: 24,
-
+        y: 20,
     },
 
     visible: {
-
         opacity: 1,
-
         y: 0,
 
         transition: {
-
-            duration: 0.75,
-
+            duration: 0.7,
             ease,
-
         },
-
     },
-
 };
 
 
@@ -65,9 +47,7 @@ const itemVariants: Variants = {
 ===================================================== */
 
 function Hero() {
-
     return (
-
         <section
             className="hero"
             id="inicio"
@@ -77,11 +57,11 @@ function Hero() {
 
 
                 {/* =================================================
-                    LADO ESQUERDO
+                    CONTEÚDO
                 ================================================= */}
 
                 <motion.div
-                    className="hero-left"
+                    className="hero-content"
 
                     variants={containerVariants}
 
@@ -91,91 +71,119 @@ function Hero() {
                 >
 
 
-                    {/* =============================================
+                    {/* =================================================
                         EYEBROW
-                    ============================================= */}
-
-                    <motion.p
-                        className="hero-eyebrow"
-
-                        variants={itemVariants}
-                    >
-
-                        ✦ O QUERIDINHO DAS CABELEIREIRAS
-
-                    </motion.p>
-
-
-                    {/* =============================================
-                        AVALIAÇÃO
-                    ============================================= */}
+                    ================================================= */}
 
                     <motion.div
-                        className="hero-rating"
-
+                        className="hero-eyebrow"
                         variants={itemVariants}
                     >
 
-                        <span className="stars">
-                            ★★★★★
+                        <span className="hero-eyebrow-dot" />
+
+                        USO PROFISSIONAL
+
+                        <span className="hero-eyebrow-separator">
+                            •
                         </span>
 
-                        <span>
-                            4,9 • Avaliações Reais
-                        </span>
+                        REVENDA EM BANCADA
 
                     </motion.div>
 
 
-                    {/* =============================================
+                    {/* =================================================
                         HEADLINE
-                    ============================================= */}
+                    ================================================= */}
 
-                    <motion.h1 variants={itemVariants}>
+                    <motion.h1
+                        variants={itemVariants}
+                    >
 
-                        <span className="hero-title-line">
-                            Aquele cabelo de salão.
-                        </span>
+                        O toque final de alto padrão que sua cliente sente na hora
 
-                        <span className="hero-title-line">
-                            O cheiro que fica
-                        </span>
-
-                        <span className="hero-title-line hero-title-script">
-                            na memória.
+                        <span className="hero-title-highlight">
+                          — e faz questão de levar para casa.
                         </span>
 
                     </motion.h1>
 
 
-                    {/* =============================================
-                        DESCRIÇÃO
-                    ============================================= */}
+                    {/* =================================================
+                        SUBTÍTULO
+                    ================================================= */}
 
                     <motion.p
-                        className="hero-description"
+                        className="hero-subtitle"
                         variants={itemVariants}
                     >
 
-                        Aquele toque final que muda tudo.
-
-                        <br />
-
+                        O Queridinho Supreme 30ml foi formulado para o lavatório 
+                        e a bancada:  
+                        
                         <strong>
-                            Brilho, maciez e uma fragrância sofisticada.
+                            {" "}poucas gotas entregam brilho espelhado, 
+                        controle imediato do frizz e uma fragrância inesquecível.
                         </strong>
-
-                        <br />
-
-                        Para deixar os fios com aquela sensação
-                        de cabelo recém-finalizado.
+                        {" "}— Use no salão e dobre seu faturamento vendendo a unidade na recepção.
 
                     </motion.p>
 
 
-                    {/* =============================================
+                    {/* =================================================
+                        INDICADORES
+                    ================================================= */}
+
+                    <motion.div
+                        className="hero-stats"
+                        variants={itemVariants}
+                    >
+
+                        <div className="hero-stat">
+
+                            <strong>
+                                Fórmula Concentrada
+                            </strong>
+
+                            <span>
+                                Rende até 40+ finalizações por frasco no salão.
+                            </span>
+
+                        </div>
+
+
+                        <div className="hero-stat">
+
+                            <strong>
+                                Acabamento Impecável
+                            </strong>
+
+                            <span>
+                                Alinhamento e selagem perfeita pós-escova ou babyliss.
+                            </span>
+
+                        </div>
+
+
+                        <div className="hero-stat">
+
+                            <strong>
+                                Margem de 100% na Revenda
+                            </strong>
+
+                            <span>
+                               Custo acessível para abastecer o salão e alta lucratividade de bancada.
+                            </span>
+
+                        </div>
+
+                    </motion.div>
+
+
+                    {/* =================================================
                         CTA
-                    ============================================= */}
+                    ================================================= */}
 
                     <motion.a
                         href="#comprar"
@@ -185,8 +193,8 @@ function Hero() {
                         variants={itemVariants}
 
                         whileHover={{
-                            y: -4,
-                            scale: 1.02,
+                            y: -3,
+                            scale: 1.015,
                         }}
 
                         whileTap={{
@@ -194,44 +202,57 @@ function Hero() {
                         }}
                     >
 
-                        QUERO EXPERIMENTAR O QUERIDINHO
+                        QUERO CONHECER O QUERIDINHO
+
+                        <span className="hero-button-arrow">
+                            →
+                        </span>
 
                     </motion.a>
 
 
-                    {/* =============================================
-                        CONFIANÇA
-                    ============================================= */}
+                    {/* =================================================
+                        MICROCOPY
+                    ================================================= */}
 
-                    <motion.div
-                        className="hero-trust"
-
+                    <motion.p
+                        className="hero-microcopy"
                         variants={itemVariants}
                     >
 
-                        <span>
-                            🔒 Compra segura
-                        </span>
+                        Você entrega o resultado.
 
-                        <span>
-                            🚚 Envio para todo o Brasil
-                        </span>
+                        <strong>
+                            {" "}Sua cliente pode levar a experiência
+                            para casa.
+                        </strong>
 
-                        <span>
-                            💳 Pix e Cartão
-                        </span>
+                    </motion.p>
 
-                    </motion.div>
+
+                    {/* =================================================
+                        NOTA DEMONSTRATIVA
+                    ================================================= */}
+
+                    <motion.p
+                        className="hero-demo-note"
+                        variants={itemVariants}
+                    >
+
+                        *Informações de rendimento e rentabilidade
+                        apresentadas como exemplo demonstrativo.
+
+                    </motion.p>
 
                 </motion.div>
 
 
                 {/* =================================================
-                    LADO DIREITO — IMAGEM PRINCIPAL
+                    MÍDIA
                 ================================================= */}
 
                 <motion.div
-                    className="hero-right"
+                    className="hero-media"
 
                     initial={{
                         opacity: 0,
@@ -244,29 +265,59 @@ function Hero() {
                     }}
 
                     transition={{
-                        duration: 1.1,
+                        duration: 1,
                         ease,
                     }}
                 >
 
                     <img
                         src={`${import.meta.env.BASE_URL}images/hero-supreme.webp`}
-
-                        alt="Modelo segurando o Queridinho Supreme com cabelos brilhantes e finalizados"
-
+                        alt="Queridinho Supreme sendo utilizado na finalização de um cabelo em um salão"
                         fetchPriority="high"
-
                         decoding="async"
                     />
+
+
+                    {/* =================================================
+                        BADGE
+                    ================================================= */}
+
+                    <motion.div
+                        className="hero-media-badge"
+
+                        initial={{
+                            opacity: 0,
+                            y: 12,
+                        }}
+
+                        animate={{
+                            opacity: 1,
+                            y: 0,
+                        }}
+
+                        transition={{
+                            duration: 0.65,
+                            delay: 0.5,
+                            ease,
+                        }}
+                    >
+
+                        <span>
+                            NO SALÃO
+                        </span>
+
+                        <strong>
+                            Use na finalização.
+                        </strong>
+
+                    </motion.div>
 
                 </motion.div>
 
             </div>
 
         </section>
-
     );
-
 }
 
 

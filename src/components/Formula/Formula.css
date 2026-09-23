@@ -1,0 +1,1167 @@
+/* =====================================================
+   FORMULA
+===================================================== */
+
+.formula {
+    width: 100%;
+
+    padding:
+        7rem
+        0;
+
+    background:
+        #11100f;
+
+    color:
+        #ffffff;
+
+    overflow:
+        hidden;
+}
+
+
+/* =====================================================
+   CONTAINER
+===================================================== */
+
+.formula-container {
+    width:
+        min(
+            920px,
+            92%
+        );
+
+    margin-inline:
+        auto;
+}
+
+
+/* =====================================================
+   CABEÇALHO
+===================================================== */
+
+.formula-header {
+    max-width:
+        720px;
+
+    margin:
+        0
+        auto
+        3rem;
+
+    text-align:
+        center;
+}
+
+
+.formula-eyebrow {
+    display:
+        inline-block;
+
+    margin-bottom:
+        .85rem;
+
+    color:
+        #ec7404;
+
+    font-size:
+        .63rem;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .16em;
+
+    line-height:
+        1.4;
+
+    text-transform:
+        uppercase;
+}
+
+
+/* =====================================================
+   TÍTULO
+===================================================== */
+
+.formula-header h2 {
+    margin:
+        0
+        0
+        1rem;
+
+    color:
+        #ffffff;
+
+    font-size:
+        clamp(
+            2.8rem,
+            5vw,
+            4.6rem
+        );
+
+    line-height:
+        .95;
+
+    letter-spacing:
+        -.055em;
+
+    font-weight:
+        700;
+}
+
+
+.formula-header h2 span {
+    display:
+        block;
+
+    margin-top:
+        .06em;
+
+    color:
+        #ec7404;
+
+    font-family:
+        Georgia,
+        serif;
+
+    font-style:
+        italic;
+
+    font-weight:
+        400;
+
+    letter-spacing:
+        -.04em;
+}
+
+
+.formula-header p {
+    max-width:
+        540px;
+
+    margin:
+        0
+        auto;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            .62
+        );
+
+    font-size:
+        .9rem;
+
+    line-height:
+        1.6;
+}
+
+
+/* =====================================================
+   PAINEL
+===================================================== */
+
+.formula-panel {
+    width:
+        100%;
+
+    overflow:
+        hidden;
+
+    border:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .09
+        );
+
+    border-radius:
+        1.35rem;
+
+    background:
+        #1a1918;
+}
+
+
+/* =====================================================
+   CABEÇALHO DO PAINEL
+===================================================== */
+
+.formula-panel-header {
+    padding:
+        2rem
+        2.2rem
+        1.35rem;
+
+    border-bottom:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .08
+        );
+}
+
+
+.formula-panel-header > span {
+    display:
+        block;
+
+    margin-bottom:
+        .5rem;
+
+    color:
+        #ec7404;
+
+    font-size:
+        .55rem;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .13em;
+}
+
+
+.formula-panel-header h3 {
+    margin:
+        0;
+
+    color:
+        #ffffff;
+
+    font-size:
+        clamp(
+            2.05rem,
+            4vw,
+            3.15rem
+        );
+
+    line-height:
+        .98;
+
+    letter-spacing:
+        -.045em;
+}
+
+
+.formula-panel-header h3 em {
+    margin-left:
+        .12em;
+
+    color:
+        #ec7404;
+
+    font-family:
+        Georgia,
+        serif;
+
+    font-style:
+        italic;
+
+    font-weight:
+        400;
+}
+
+
+/* =====================================================
+   ITENS
+===================================================== */
+
+.formula-items {
+    display:
+        flex;
+
+    flex-direction:
+        column;
+}
+
+
+.formula-item {
+    border-bottom:
+        1px solid
+        rgba(
+            255,
+            255,
+            255,
+            .08
+        );
+}
+
+
+.formula-item:last-child {
+    border-bottom:
+        0;
+}
+
+
+/* =====================================================
+   BOTÃO
+===================================================== */
+
+.formula-item-button {
+    width:
+        100%;
+
+    min-height:
+        82px;
+
+    padding:
+        .8rem
+        1.25rem;
+
+    display:
+        grid;
+
+    grid-template-columns:
+        2.3rem
+        minmax(
+            0,
+            1fr
+        )
+        auto;
+
+    align-items:
+        center;
+
+    gap:
+        .85rem;
+
+    border:
+        0;
+
+    background:
+        transparent;
+
+    color:
+        inherit;
+
+    font-family:
+        inherit;
+
+    text-align:
+        left;
+
+    cursor:
+        pointer;
+
+    transition:
+        background
+        .25s
+        ease;
+}
+
+
+.formula-item-button:hover {
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .025
+        );
+}
+
+
+.formula-item.is-active
+.formula-item-button {
+    background:
+        rgba(
+            236,
+            116,
+            4,
+            .045
+        );
+}
+
+
+/* =====================================================
+   NÚMERO
+===================================================== */
+
+.formula-item-number {
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            .34
+        );
+
+    font-size:
+        .57rem;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .05em;
+}
+
+
+.formula-item.is-active
+.formula-item-number {
+    color:
+        #ec7404;
+}
+
+
+/* =====================================================
+   COPY
+===================================================== */
+
+.formula-item-copy {
+    min-width:
+        0;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        .1rem;
+}
+
+
+.formula-item-copy strong {
+    color:
+        #ffffff;
+
+    font-size:
+        .88rem;
+
+    line-height:
+        1.25;
+
+    font-weight:
+        800;
+}
+
+
+.formula-item-copy small {
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            .44
+        );
+
+    font-size:
+        .68rem;
+
+    line-height:
+        1.4;
+}
+
+
+/* =====================================================
+   ÍCONE
+===================================================== */
+
+.formula-item-icon {
+    width:
+        1.75rem;
+
+    height:
+        1.75rem;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .07
+        );
+
+    color:
+        #ec7404;
+
+    font-size:
+        .9rem;
+
+    transition:
+        background
+        .25s
+        ease,
+
+        transform
+        .25s
+        ease;
+}
+
+
+.formula-item.is-active
+.formula-item-icon {
+    background:
+        rgba(
+            236,
+            116,
+            4,
+            .14
+        );
+}
+
+
+/* =====================================================
+   DETALHE
+===================================================== */
+
+.formula-item-detail {
+    overflow:
+        hidden;
+}
+
+
+.formula-item-detail p {
+    max-width:
+        650px;
+
+    margin:
+        0
+        2.7rem
+        1.1rem;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            .6
+        );
+
+    font-size:
+        .76rem;
+
+    line-height:
+        1.58;
+}
+
+
+/* =====================================================
+   RESULTADO DINÂMICO
+===================================================== */
+
+.formula-result {
+    margin:
+        1.1rem;
+
+    padding:
+        .85rem
+        1rem;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        .7rem;
+
+    border:
+        1px solid
+        rgba(
+            236,
+            116,
+            4,
+            .18
+        );
+
+    border-radius:
+        .9rem;
+
+    background:
+        rgba(
+            236,
+            116,
+            4,
+            .075
+        );
+}
+
+
+.formula-result-empty {
+    border-color:
+        rgba(
+            255,
+            255,
+            255,
+            .07
+        );
+
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .025
+        );
+}
+
+
+.formula-result-icon {
+    width:
+        2rem;
+
+    height:
+        2rem;
+
+    flex:
+        0 0 auto;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    border-radius:
+        50%;
+
+    background:
+        rgba(
+            236,
+            116,
+            4,
+            .14
+        );
+
+    color:
+        #ec7404;
+
+    font-size:
+        .82rem;
+}
+
+
+.formula-result-empty
+.formula-result-icon {
+    background:
+        rgba(
+            255,
+            255,
+            255,
+            .06
+        );
+}
+
+
+.formula-result span {
+    display:
+        block;
+
+    margin-bottom:
+        .1rem;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            .38
+        );
+
+    font-size:
+        .48rem;
+
+    font-weight:
+        800;
+
+    letter-spacing:
+        .12em;
+}
+
+
+.formula-result p {
+    margin:
+        0;
+
+    color:
+        #ffffff;
+
+    font-size:
+        .73rem;
+
+    line-height:
+        1.35;
+
+    font-weight:
+        700;
+}
+
+
+.formula-result-empty p {
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            .55
+        );
+
+    font-weight:
+        500;
+}
+
+
+/* =====================================================
+   FECHAMENTO
+===================================================== */
+
+.formula-closing {
+    max-width:
+        620px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        .45rem;
+
+    margin:
+        1.65rem
+        auto
+        0;
+
+    text-align:
+        center;
+}
+
+
+.formula-closing > span {
+    color:
+        #ec7404;
+
+    font-size:
+        .7rem;
+}
+
+
+.formula-closing p {
+    margin:
+        0;
+
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            .5
+        );
+
+    font-size:
+        .72rem;
+
+    line-height:
+        1.5;
+}
+
+
+.formula-closing strong {
+    color:
+        rgba(
+            255,
+            255,
+            255,
+            .88
+        );
+
+    font-weight:
+        800;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .formula {
+        padding:
+            5.8rem
+            0;
+    }
+
+
+    .formula-container {
+        width:
+            min(
+                680px,
+                92%
+            );
+    }
+
+
+    .formula-header {
+        margin-bottom:
+            2.4rem;
+    }
+
+
+    .formula-header h2 {
+        font-size:
+            clamp(
+                2.45rem,
+                7vw,
+                3.8rem
+            );
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .formula {
+        padding:
+            4.4rem
+            0;
+    }
+
+
+    .formula-container {
+        width:
+            calc(
+                100% - 2rem
+            );
+    }
+
+
+    /* =================================================
+       HEADER
+    ================================================= */
+
+    .formula-header {
+        max-width:
+            350px;
+
+        margin-bottom:
+            2rem;
+    }
+
+
+    .formula-eyebrow {
+        margin-bottom:
+            .7rem;
+
+        font-size:
+            .54rem;
+
+        letter-spacing:
+            .11em;
+    }
+
+
+    .formula-header h2 {
+        margin-bottom:
+            .85rem;
+
+        font-size:
+            clamp(
+                2.05rem,
+                9vw,
+                2.7rem
+            );
+
+        line-height:
+            .99;
+    }
+
+
+    .formula-header p {
+        max-width:
+            330px;
+
+        font-size:
+            .8rem;
+
+        line-height:
+            1.55;
+    }
+
+
+    /* =================================================
+       PAINEL
+    ================================================= */
+
+    .formula-panel {
+        border-radius:
+            1rem;
+    }
+
+
+    .formula-panel-header {
+        padding:
+            1.45rem
+            1.05rem
+            1.05rem;
+    }
+
+
+    .formula-panel-header > span {
+        margin-bottom:
+            .42rem;
+
+        font-size:
+            .5rem;
+    }
+
+
+    .formula-panel-header h3 {
+        font-size:
+            1.9rem;
+
+        line-height:
+            1;
+    }
+
+
+    /* =================================================
+       ITENS
+    ================================================= */
+
+    .formula-item-button {
+        min-height:
+            67px;
+
+        padding:
+            .7rem
+            .75rem;
+
+        grid-template-columns:
+            1.55rem
+            minmax(
+                0,
+                1fr
+            )
+            auto;
+
+        gap:
+            .5rem;
+    }
+
+
+    .formula-item-number {
+        font-size:
+            .5rem;
+    }
+
+
+    .formula-item-copy strong {
+        font-size:
+            .77rem;
+    }
+
+
+    .formula-item-copy small {
+        font-size:
+            .63rem;
+    }
+
+
+    .formula-item-icon {
+        width:
+            1.6rem;
+
+        height:
+            1.6rem;
+
+        font-size:
+            .82rem;
+    }
+
+
+    /* =================================================
+       DETALHE
+    ================================================= */
+
+    .formula-item-detail p {
+        margin:
+            0
+            2.2rem
+            .85rem;
+
+        font-size:
+            .68rem;
+
+        line-height:
+            1.5;
+    }
+
+
+    /* =================================================
+       RESULTADO
+    ================================================= */
+
+    .formula-result {
+        margin:
+            .9rem;
+
+        padding:
+            .7rem
+            .75rem;
+    }
+
+
+    .formula-result-icon {
+        width:
+            1.75rem;
+
+        height:
+            1.75rem;
+
+        font-size:
+            .72rem;
+    }
+
+
+    .formula-result span {
+        font-size:
+            .45rem;
+    }
+
+
+    .formula-result p {
+        font-size:
+            .65rem;
+
+        line-height:
+            1.4;
+    }
+
+
+    /* =================================================
+       FECHAMENTO
+    ================================================= */
+
+    .formula-closing {
+        max-width:
+            320px;
+
+        margin-top:
+            1.3rem;
+    }
+
+
+    .formula-closing p {
+        font-size:
+            .65rem;
+    }
+
+}
+
+
+/* =====================================================
+   CELULAR PEQUENO
+===================================================== */
+
+@media (max-width: 400px) {
+
+    .formula {
+        padding:
+            4rem
+            0;
+    }
+
+
+    .formula-container {
+        width:
+            calc(
+                100% - 1.4rem
+            );
+    }
+
+
+    .formula-header h2 {
+        font-size:
+            2rem;
+    }
+
+
+    .formula-panel-header {
+        padding-inline:
+            .95rem;
+    }
+
+
+    .formula-item-button {
+        padding-inline:
+            .65rem;
+    }
+
+
+    .formula-item-detail p {
+        margin-left:
+            2rem;
+
+        font-size:
+            .66rem;
+    }
+
+
+    .formula-result {
+        margin-inline:
+            .75rem;
+    }
+
+}
+
+
+/* =====================================================
+   ACESSIBILIDADE
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .formula *,
+    .formula *::before,
+    .formula *::after {
+
+        animation-duration:
+            .01ms !important;
+
+        animation-iteration-count:
+            1 !important;
+
+        transition-duration:
+            .01ms !important;
+    }
+
+}
